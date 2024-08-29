@@ -5,7 +5,7 @@ public class proyectJueves {
     public static void main(String[] args){
 
 
-        System.out.println("sexo");
+        System.out.println("sex");
 
 
 
