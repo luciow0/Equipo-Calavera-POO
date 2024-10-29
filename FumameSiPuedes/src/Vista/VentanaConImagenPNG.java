@@ -8,7 +8,7 @@ public class VentanaConImagenPNG {
         frame.setSize(400, 300);
 
         // Cargar la imagen PNG
-        ImageIcon icono = new ImageIcon("ruta/de/tu/imagen.png");
+        ImageIcon icono = new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
 
         // Crear un JLabel con el icono de imagen
         JLabel etiquetaImagen = new JLabel(icono);
