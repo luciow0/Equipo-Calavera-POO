@@ -22,7 +22,7 @@ public class Lienzo extends JPanel implements KeyListener{
 
 
 
-    private JLabel prueba = new JLabel("");
+    private JLabel prueba = new JLabel("oaaa");
 
     public Lienzo(){
         addKeyListener(this);
