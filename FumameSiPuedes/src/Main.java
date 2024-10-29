@@ -12,7 +12,7 @@ public class Main {
         JFrame ventana = new JFrame("Ventana bien piola");
         ventana.add(new Lienzo());
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(700,700);
+        ventana.setSize(2000,1200);
         ventana.setVisible(true);
     }
 }

@@ -42,20 +42,37 @@ public class Lienzo extends JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getExtendedKeyCode() == KeyEvent.VK_UP){
-            imagenPersonaje.setLocation(imagenPersonaje.getX(), imagenPersonaje.getY() - 25);
+        int step = 25; // Tamaño del paso de movimiento
+
+        // Tamaño del personaje y del panel
+        int width = imagenPersonaje.getWidth();
+        int height = imagenPersonaje.getHeight();
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
+
+        // Movimiento con verificación de límites
+        if (e.getExtendedKeyCode() == KeyEvent.VK_UP) {
+            if (imagenPersonaje.getY() - step >= 0) {
+                imagenPersonaje.setLocation(imagenPersonaje.getX(), imagenPersonaje.getY() - step);
+            }
         }
 
-        if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN){
-            imagenPersonaje.setLocation(imagenPersonaje.getX(), imagenPersonaje.getY() + 25);
+        if (e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
+            if (imagenPersonaje.getY() + step + height <= panelHeight) {
+                imagenPersonaje.setLocation(imagenPersonaje.getX(), imagenPersonaje.getY() + step);
+            }
         }
 
-        if (e.getExtendedKeyCode() == KeyEvent.VK_LEFT){
-            imagenPersonaje.setLocation(imagenPersonaje.getX() - 25, imagenPersonaje.getY());
+        if (e.getExtendedKeyCode() == KeyEvent.VK_LEFT) {
+            if (imagenPersonaje.getX() - step >= 0) {
+                imagenPersonaje.setLocation(imagenPersonaje.getX() - step, imagenPersonaje.getY());
+            }
         }
 
-        if (e.getExtendedKeyCode() == KeyEvent.VK_RIGHT){
-            imagenPersonaje.setLocation(imagenPersonaje.getX() + 25, imagenPersonaje.getY());
+        if (e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
+            if (imagenPersonaje.getX() + step + width <= panelWidth) {
+                imagenPersonaje.setLocation(imagenPersonaje.getX() + step, imagenPersonaje.getY());
+            }
         }
     }
 
@@ -63,4 +80,5 @@ public class Lienzo extends JPanel implements KeyListener{
     public void keyReleased(KeyEvent e) {
 
     }
+
 }
