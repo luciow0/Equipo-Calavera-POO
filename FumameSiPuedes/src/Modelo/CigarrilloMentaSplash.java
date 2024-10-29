@@ -1,5 +1,5 @@
 package Modelo;
 
-public class CigarrilloMentaSplash {
+public class CigarrilloMentaSplash extends FumameSiPuedes.src.Modelo.Cigarrillo {
 
 }

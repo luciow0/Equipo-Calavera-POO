@@ -1,5 +1,7 @@
 package FumameSiPuedes.src.Modelo;
 
+import javax.swing.*;
+
 public abstract class Cigarrillo {
     private int vida;
     private float salto;
@@ -9,6 +11,15 @@ public abstract class Cigarrillo {
         this.vida = vida;
         this.salto = salto;
         this.velocidadMov = velocidadMov;
+    }
+
+
+    public JLabel getImagenPanel(String ruta){
+        ImageIcon icono = new ImageIcon(ruta);
+        JLabel imagen = new JLabel(icono);
+        //imagen.setSize(icono.getIconWidth(), icono.getIconHeight());
+        return imagen;
+
     }
 
     public Cigarrillo(){}

@@ -1,4 +1,4 @@
 package Modelo;
 
-public class CigarrilloLazySlim {
+public class CigarrilloLazySlim extends FumameSiPuedes.src.Modelo.Cigarrillo {
 }
