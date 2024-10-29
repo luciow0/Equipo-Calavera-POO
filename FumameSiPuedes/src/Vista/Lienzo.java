@@ -20,7 +20,7 @@ public class Lienzo extends JPanel implements KeyListener{
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
     }
 
-    ImagenPanel panelImagen = new ImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
+
 
     private JLabel prueba = new JLabel("");
 
