@@ -21,8 +21,11 @@ public class Lienzo extends JPanel implements KeyListener{
     }
 
 
+    // privat int mapWidth =
 
-    private JLabel prueba = new JLabel("oaaa");
+    ImageIcon icono = new ImageIcon("C:\\Users\\ruloc\\Documents\\GitHub\\Equipo-Calavera-POO\\FumameSiPuedes\\src\\Vista\\imgs\\Smooki-removebg-preview(1).png");
+
+    private JLabel prueba = new JLabel(icono);
 
     public Lienzo(){
         addKeyListener(this);
