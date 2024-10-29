@@ -8,7 +8,7 @@ import javax.swing.*;
 public class Main {
 
     public static void main (String[] args) {
-        JFrame ventana = new JFrame("Teclado");
+        JFrame ventana = new JFrame("Ventana bien piola");
 
         ImagenPanel imagenPanel = new ImagenPanel("FumameSiPuedes/src/imgs/fondo.jpg");
 
