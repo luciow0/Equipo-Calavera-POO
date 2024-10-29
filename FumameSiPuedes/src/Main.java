@@ -1,5 +1,5 @@
 package FumameSiPuedes.src;
-
+import FumameSiPuedes.src.Modelo.*;
 import FumameSiPuedes.src.Vista.Lienzo;
 import FumameSiPuedes.src.Vista.imgs.ImagenPanel;
 
@@ -14,9 +14,5 @@ public class Main {
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setSize(700,700);
         ventana.setVisible(true);
-
-
-
-
     }
 }
