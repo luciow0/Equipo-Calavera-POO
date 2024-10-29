@@ -1,14 +1,16 @@
 package FumameSiPuedes.src;
-import FumameSiPuedes.src.Vista.GameWindow;
+
+import FumameSiPuedes.src.Vista.Lienzo;
+
+import javax.swing.*;
 
 public class Main {
-    public static void main(String[] args) {
-        // Definir dimensiones de la ventana y título
-        int width = 800;
-        int height = 600;
-        String title = "Fumame Si Puedes";
 
-        // Crear la ventana del juego
-        new GameWindow(width, height, title);
+    public static void main (String[] args) {
+        JFrame ventana = new JFrame("Teclado");
+        ventana.add(new Lienzo());
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setSize(300,300);
+        ventana.setVisible(true);
     }
 }
