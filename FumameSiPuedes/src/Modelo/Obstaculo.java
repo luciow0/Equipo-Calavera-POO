@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Obstaculo extends JLabel {
-    protected int x, y, ancho, alto;
+    protected int x;
+    protected int y;
+    public int ancho;
+    public int alto;
 
     public Obstaculo(int x, int y, int ancho, int alto, String rutaImagen) {
         this.x = x;

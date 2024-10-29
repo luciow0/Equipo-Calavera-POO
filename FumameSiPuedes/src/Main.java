@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        JFrame ventana = new JFrame("Ventana bien piola");
+        JFrame ventana = new JFrame("FUMAME SI PUEDES 2 (El juego)");
         Lienzo lienzo = new Lienzo(); // Crear una instancia de Lienzo
         ventana.add(lienzo); // Agregar el lienzo al frame
 
