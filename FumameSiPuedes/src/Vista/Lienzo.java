@@ -48,7 +48,7 @@ public class Lienzo extends JPanel implements KeyListener {
 
     private void crearPlataformas() {
         // Plataforma invisible en el piso (por ejemplo, altura del 5% de la pantalla)
-        plataformas.add(new Plataforma(0, 1.0, 1.0, 0.15, null));  // `null` como imagen para que sea invisible
+        plataformas.add(new Plataforma(0, 0.95, 1.0, 0.15, null));  // `null` como imagen para que sea invisible
 
         // Agregar las demás plataformas visibles
         plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.05, "ruta/a/la/imagen/de/plataforma.png"));
@@ -106,11 +106,9 @@ public class Lienzo extends JPanel implements KeyListener {
 
         for (Plataforma plataforma : plataformas) {
             if (plataforma.colisionaCon(imagenPersonaje)) {
-                // Verifica que el personaje esté cayendo hacia la plataforma (desde arriba)
                 int posicionInferiorPersonaje = imagenPersonaje.getY() + imagenPersonaje.getHeight();
                 int posicionSuperiorPlataforma = plataforma.getY();
 
-                // Solo detener si el personaje está tocando la plataforma desde arriba
                 if (posicionInferiorPersonaje <= posicionSuperiorPlataforma + 5) {
                     int y = plataforma.getY() - imagenPersonaje.getHeight();
                     imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
@@ -121,18 +119,15 @@ public class Lienzo extends JPanel implements KeyListener {
             }
         }
 
-        // Si no se detecta ninguna colisión, permite que el personaje siga cayendo
         if (!colisionDetectada && !enSalto) {
             aplicarGravedad();
         }
     }
 
-
     private void aplicarGravedad() {
         if (!enSalto) {
             int y = imagenPersonaje.getY();
             int nuevoY = y + 5;
-            imagenPersonaje.setLocation(imagenPersonaje.getX(), nuevoY);
 
             boolean sobrePlataforma = false;
             for (Plataforma plataforma : plataformas) {
@@ -146,6 +141,9 @@ public class Lienzo extends JPanel implements KeyListener {
 
             if (!sobrePlataforma && y + imagenPersonaje.getHeight() < getHeight()) {
                 imagenPersonaje.setLocation(imagenPersonaje.getX(), nuevoY);
+            } else if (y + imagenPersonaje.getHeight() >= getHeight()) {
+                int yLimite = getHeight() - imagenPersonaje.getHeight();
+                imagenPersonaje.setLocation(imagenPersonaje.getX(), yLimite);
             }
         }
     }
