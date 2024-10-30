@@ -27,4 +27,11 @@ public abstract class Obstaculo extends JLabel {
         Rectangle personajeRect = new Rectangle(character.getX(), character.getY(), character.getWidth(), character.getHeight());
         return obstaculoRect.intersects(personajeRect);
     }
+
+    /*protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (getimagen != null) { // Dibuja solo si hay una imagen
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+        }
+    }*/
 }

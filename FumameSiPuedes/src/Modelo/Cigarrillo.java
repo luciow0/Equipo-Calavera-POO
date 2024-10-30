@@ -13,16 +13,25 @@ public abstract class Cigarrillo {
         this.velocidadMov = velocidadMov;
     }
 
+    public Cigarrillo(){}
 
-    public JLabel getImagenPanel(String ruta){
-        ImageIcon icono = new ImageIcon(ruta);
-        JLabel imagen = new JLabel(icono);
-        //imagen.setSize(icono.getIconWidth(), icono.getIconHeight());
-        return imagen;
+    public javax.swing.JLabel getImagenPanel(String path) {
+        // Crear un nuevo JPanel
+        JPanel panel = new JPanel();
 
+        // Cargar el icono desde la ruta especificada
+        ImageIcon icono = new ImageIcon(path);
+
+        // Crear un JLabel con el icono
+        JLabel imagenLabel = new JLabel(icono);
+
+        // Añadir el JLabel al panel
+        panel.add(imagenLabel);
+
+        return imagenLabel; // Devolver el panel con la imagen configurada
     }
 
-    public Cigarrillo(){}
+
 
     public int getVida() {
         return vida;
@@ -48,11 +57,6 @@ public abstract class Cigarrillo {
         this.velocidadMov = velocidadMov;
     }
 
-    public void moverse() {}
-
-    public void saltar() {}
-
-    public void agacharse() {}
 
     // Método que disminuye la vida del cigarrillo si recibe daño
     public void recibirDaño(int daño) {

@@ -15,6 +15,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private boolean moviendoIzquierda = false;
     private boolean moviendoDerecha = false;
     private ArrayList<Plataforma> plataformas = new ArrayList<>();
+    private Timer timer;
 
     public Lienzo() {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
@@ -26,15 +27,15 @@ public class Lienzo extends JPanel implements KeyListener {
         imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
         add(imagenPersonaje);
 
-        // Crear plataformas
-        crearPlataformas();
+        crearPlataformas(); // Crear plataformas pero no redimensionarlas aún
 
         posicionarPersonajeCentro();
 
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                posicionarPersonajeCentro();
+                redimensionarPlataformas();  // Redimensiona las plataformas primero
+                posicionarPersonajeCentro(); // Posiciona el personaje después de redimensionar
             }
         });
 
@@ -46,12 +47,31 @@ public class Lienzo extends JPanel implements KeyListener {
     }
 
     private void crearPlataformas() {
-        // Agregar plataformas al juego
-        plataformas.add(new Plataforma(100, 300, 150, 20, "ruta/a/la/imagen/de/plataforma.png"));
-        plataformas.add(new Plataforma(300, 400, 150, 20, "ruta/a/la/imagen/de/plataforma.png"));
-        // Agrega más plataformas según sea necesario
+        // Plataforma invisible en el piso (por ejemplo, altura del 5% de la pantalla)
+        plataformas.add(new Plataforma(0, 1.0, 1.0, 0.15, null));  // `null` como imagen para que sea invisible
+
+        // Agregar las demás plataformas visibles
+        plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.05, "ruta/a/la/imagen/de/plataforma.png"));
+        plataformas.add(new Plataforma(0.5, 0.8, 0.2, 0.05, "ruta/a/la/imagen/de/plataforma.png"));
+
         for (Plataforma plataforma : plataformas) {
             add(plataforma);
+        }
+        redimensionarPlataformas();
+    }
+
+    private void redimensionarPlataformas() {
+        for (Plataforma plataforma : plataformas) {
+            int nuevoX = (int) (plataforma.getPosicionRelativaX() * getWidth());
+            int nuevoY = (int) (plataforma.getPosicionRelativaY() * getHeight());
+            int nuevoAncho = (int) (plataforma.getAnchoRelativo() * getWidth());
+            int nuevoAlto = (int) (plataforma.getAltoRelativo() * getHeight());
+
+            plataforma.setBounds(nuevoX, nuevoY, nuevoAncho, nuevoAlto);
+
+            // Verificar posición y dimensiones
+            System.out.println("Plataforma - PosX: " + nuevoX + ", PosY: " + nuevoY +
+                    ", Ancho: " + nuevoAncho + ", Alto: " + nuevoAlto);
         }
     }
 
@@ -82,26 +102,67 @@ public class Lienzo extends JPanel implements KeyListener {
     }
 
     private void verificarColisiones() {
+        boolean colisionDetectada = false;
+
         for (Plataforma plataforma : plataformas) {
             if (plataforma.colisionaCon(imagenPersonaje)) {
-                // Ajustar la posición del personaje cuando colisiona con la plataforma
-                int y = plataforma.getY() - imagenPersonaje.getHeight();
-                imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
-                enSalto = false; // No está en salto si colisiona con la plataforma
-                return; // Salir del bucle al detectar la primera colisión
+                // Verifica que el personaje esté cayendo hacia la plataforma (desde arriba)
+                int posicionInferiorPersonaje = imagenPersonaje.getY() + imagenPersonaje.getHeight();
+                int posicionSuperiorPlataforma = plataforma.getY();
+
+                // Solo detener si el personaje está tocando la plataforma desde arriba
+                if (posicionInferiorPersonaje <= posicionSuperiorPlataforma + 5) {
+                    int y = plataforma.getY() - imagenPersonaje.getHeight();
+                    imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
+                    enSalto = false;
+                    colisionDetectada = true;
+                    break;
+                }
+            }
+        }
+
+        // Si no se detecta ninguna colisión, permite que el personaje siga cayendo
+        if (!colisionDetectada && !enSalto) {
+            aplicarGravedad();
+        }
+    }
+
+
+    private void aplicarGravedad() {
+        if (!enSalto) {
+            int y = imagenPersonaje.getY();
+            int nuevoY = y + 5;
+            imagenPersonaje.setLocation(imagenPersonaje.getX(), nuevoY);
+
+            boolean sobrePlataforma = false;
+            for (Plataforma plataforma : plataformas) {
+                if (plataforma.colisionaCon(imagenPersonaje)) {
+                    int yPlataforma = plataforma.getY() - imagenPersonaje.getHeight();
+                    imagenPersonaje.setLocation(imagenPersonaje.getX(), yPlataforma);
+                    sobrePlataforma = true;
+                    break;
+                }
+            }
+
+            if (!sobrePlataforma && y + imagenPersonaje.getHeight() < getHeight()) {
+                imagenPersonaje.setLocation(imagenPersonaje.getX(), nuevoY);
             }
         }
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
 
+        // Redimensionar plataformas antes de dibujar
+        redimensionarPlataformas();
+
         // Dibujar plataformas
-        g.setColor(Color.BLACK); // Color negro para las plataformas
+        g.setColor(Color.BLACK);
         for (Plataforma plataforma : plataformas) {
-            g.fillRect(plataforma.getX(), plataforma.getY(), plataforma.ancho, plataforma.alto); // Dibuja la plataforma
+            g.fillRect(plataforma.getX(), plataforma.getY(), plataforma.getWidth(), plataforma.getHeight());
         }
     }
 
@@ -129,6 +190,13 @@ public class Lienzo extends JPanel implements KeyListener {
         } else if (e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
             moviendoDerecha = false;
         }
+    }
+
+
+    private void caer() {
+        int y = imagenPersonaje.getY();
+        int nuevoY = y + 5; // Velocidad de caída
+        boolean enObstaculo = false;
     }
 
     private void iniciarSalto() {
