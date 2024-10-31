@@ -48,7 +48,16 @@ public class VentanaInicio extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Acción para seleccionar el personaje
-                    JOptionPane.showMessageDialog(null, "Personaje " + finalX + " seleccionado");
+
+                    if (finalX == 1){
+                        JOptionPane.showMessageDialog(null,"Smooki elegido, gran eleccion!");
+                    }
+                    else if (finalX == 2){
+                        JOptionPane.showMessageDialog(null,"MentaSplash elegido, gran eleccion!");
+                    }
+                    else if (finalX == 3){
+                        JOptionPane.showMessageDialog(null,"amigo por que elegiste a la mina alto puto perrite lo portas?");
+                    }
                 }
             });
             panelCentro.add(botonSeleccionar);
