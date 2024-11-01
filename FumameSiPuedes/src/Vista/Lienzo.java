@@ -19,6 +19,7 @@ public class Lienzo extends JPanel implements KeyListener {
 
     public Lienzo() {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
+        // imagenFondo = new ImageIcon("/home/pipeta/Documents/Code/TP_POO/Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
 
         addKeyListener(this);
         setFocusable(true);

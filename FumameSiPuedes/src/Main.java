@@ -15,6 +15,10 @@ public class Main {
         String rutaImagen1 = "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png";
         String rutaImagen2 = "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png";
         String rutaImagen3 = "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png";
+        // Rutas para Feli que tiene Linux :D
+        //String rutaImagen1 = "/home/pipeta/Documents/Code/TP_POO/Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png";
+        //String rutaImagen2 = "/home/pipeta/Documents/Code/TP_POO/Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png";
+        //String rutaImagen3 = "/home/pipeta/Documents/Code/TP_POO/Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png";
 
 
         SwingUtilities.invokeLater(() -> {
