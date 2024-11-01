@@ -1,6 +1,6 @@
 package FumameSiPuedes.src.Modelo;
 
-public class Plataforma extends Obstaculo {
+public class Plataforma extends FumameSiPuedes.src.Modelo.Obstaculo {
     private double posicionRelativaX;
     private double posicionRelativaY;
     private double anchoRelativo;
