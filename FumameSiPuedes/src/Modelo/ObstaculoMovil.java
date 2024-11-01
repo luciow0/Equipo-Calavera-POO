@@ -1,5 +1,6 @@
 package FumameSiPuedes.src.Modelo;
 
+
 public class ObstaculoMovil extends Obstaculo {
     private int velocidadX;
 
