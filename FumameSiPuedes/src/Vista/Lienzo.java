@@ -28,6 +28,7 @@ public class Lienzo extends JPanel implements KeyListener {
         setFocusable(true);
         setLayout(null);
 
+<<<<<<< Updated upstream
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
             imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
 
@@ -40,6 +41,10 @@ public class Lienzo extends JPanel implements KeyListener {
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
             imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
         }
+=======
+        imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
+
+>>>>>>> Stashed changes
         add(imagenPersonaje);
 
         crearPlataformas(); // Crear plataformas pero no redimensionarlas aún
