@@ -143,8 +143,7 @@ public class Lienzo extends JPanel implements KeyListener {
                 int posicionInferiorPersonaje = imagenPersonaje.getY() + imagenPersonaje.getHeight();
                 int posicionSuperiorPlataforma = plataforma.getY();
 
-                // Verificar si el personaje está cayendo y colisiona con la plataforma desde arriba
-                if (posicionInferiorPersonaje <= posicionSuperiorPlataforma + 5 && !enSalto) {
+                if (posicionInferiorPersonaje <= posicionSuperiorPlataforma + 5) {
                     int y = plataforma.getY() - imagenPersonaje.getHeight();
                     imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
                     enSalto = false;
@@ -159,24 +158,18 @@ public class Lienzo extends JPanel implements KeyListener {
         }
     }
 
-
     private void aplicarGravedad() {
         if (!enSalto) {
             int y = imagenPersonaje.getY();
-            int nuevoY = y + 5;  // Velocidad de caída
+            int nuevoY = y + 5;
 
             boolean sobrePlataforma = false;
             for (Plataforma plataforma : plataformas) {
                 if (plataforma.colisionaCon(imagenPersonaje)) {
-                    int posicionInferiorPersonaje = y + imagenPersonaje.getHeight();
-                    int posicionSuperiorPlataforma = plataforma.getY();
-
-                    if (posicionInferiorPersonaje <= posicionSuperiorPlataforma + 5) {
-                        int yPlataforma = plataforma.getY() - imagenPersonaje.getHeight();
-                        imagenPersonaje.setLocation(imagenPersonaje.getX(), yPlataforma);
-                        sobrePlataforma = true;
-                        break;
-                    }
+                    int yPlataforma = plataforma.getY() - imagenPersonaje.getHeight();
+                    imagenPersonaje.setLocation(imagenPersonaje.getX(), yPlataforma);
+                    sobrePlataforma = true;
+                    break;
                 }
             }
 
@@ -188,7 +181,6 @@ public class Lienzo extends JPanel implements KeyListener {
             }
         }
     }
-
 
 
     @Override
