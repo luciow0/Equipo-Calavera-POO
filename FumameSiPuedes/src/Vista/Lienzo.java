@@ -107,14 +107,33 @@ public class Lienzo extends JPanel implements KeyListener {
         int width = imagenPersonaje.getWidth();
         int panelWidth = getWidth();
 
+        // Movimiento hacia la izquierda
         if (moviendoIzquierda && x - step >= 0) {
+            // Cambiar imagen a la versión "izquierda"
+            if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")) {
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-izquierda.png"));
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png")) {
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-izquierda.png"));
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png")) {
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierda.png"));
+            }
             imagenPersonaje.setLocation(x - step, y);
-
         }
+
+        // Movimiento hacia la derecha
         if (moviendoDerecha && x + step + width <= panelWidth) {
+            // Cambiar imagen a la versión "derecha"
+            if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")) {
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"));
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png")) {
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"));
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png")) {
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"));
+            }
             imagenPersonaje.setLocation(x + step, y);
         }
     }
+
 
     private void verificarColisiones() {
         boolean colisionDetectada = false;
