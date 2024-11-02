@@ -42,7 +42,7 @@ public class Lienzo extends JPanel implements KeyListener {
             imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
         }
 //=======
-        
+            
 
 //>>>>>>> Stashed changes
         add(imagenPersonaje);
