@@ -27,22 +27,20 @@ public class Lienzo extends JPanel implements KeyListener {
         setFocusable(true);
         setLayout(null);
 
-        // setear imagen de personaje recibiendo por argumento en el constructor el path
-        if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
+        // Setear imagen de personaje recibiendo por argumento en el constructor el path
+        if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")){
             imagenPersonaje = cigarrilloSmooki.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
-        }
-        if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
+        } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png")){
             imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
-        }
-        if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
-            imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
+        } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png")){
+            imagenPersonaje = cigarrilloLazySlim.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
         }
 
-        add(imagenPersonaje); // aniade la imagen al jpanel lienzo
+        add(imagenPersonaje); // Añade la imagen al JPanel lienzo
         crearPlataformas(); // Crear plataformas pero no redimensionarlas aún, invoca metodo
-        posicionarPersonajeCentro(); // invoca metodo posicionar personaje
+        posicionarPersonajeCentro(); // Invoca metodo para posicionar personaje
 
-        // añadir listener
+        // Añadir listener
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -50,29 +48,35 @@ public class Lienzo extends JPanel implements KeyListener {
                 posicionarPersonajeCentro(); // Posiciona el personaje después de redimensionar
             }
         });
-        // añadir listener
 
-        // timer
-        Timer timer = new Timer(20, e -> {
+        // Timer
+        timer = new Timer(20, e -> {
             actualizarMovimiento(eleccion);
             verificarColisiones();
         });
         timer.start();
-        // timer
     }
 
     private void crearPlataformas() {
+        int anchoPanel = getWidth();
+        int altoPanel = getHeight();
+
         // Plataforma invisible en el piso (por ejemplo, altura del 5% de la pantalla)
-        plataformas.add(new Plataforma(0, 0.95, 1.0, 0.15, null));  // `null` como imagen para que sea invisible
+        plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05)); // Sin imagen, solo color
+
         // Agregar las demás plataformas visibles
-        plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.05, "ruta/a/la/imagen/de/plataforma.png"));
-        plataformas.add(new Plataforma(0.5, 0.8, 0.2, 0.05, "ruta/a/la/imagen/de/plataforma.png"));
+        plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.05)); // Proporciones relativas
+        plataformas.add(new Plataforma(0.5, 0.8, 0.2, 0.05)); // Proporciones relativas
 
         for (Plataforma plataforma : plataformas) {
             add(plataforma);
         }
+
         redimensionarPlataformas();
     }
+
+
+
 
     private void redimensionarPlataformas() {
         for (Plataforma plataforma : plataformas) {
@@ -81,13 +85,19 @@ public class Lienzo extends JPanel implements KeyListener {
             int nuevoAncho = (int) (plataforma.getAnchoRelativo() * getWidth());
             int nuevoAlto = (int) (plataforma.getAltoRelativo() * getHeight());
 
-            plataforma.setBounds(nuevoX, nuevoY, nuevoAncho, nuevoAlto);
+            // Asegúrate de que las dimensiones no sean negativas
+            nuevoAncho = Math.max(nuevoAncho, 1);
+            nuevoAlto = Math.max(nuevoAlto, 1);
+            nuevoY = Math.max(nuevoY, 0); // Asegura que Y no sea negativa
 
-            // Verificar posición y dimensiones
-            System.out.println("Plataforma - PosX: " + nuevoX + ", PosY: " + nuevoY +
-                    ", Ancho: " + nuevoAncho + ", Alto: " + nuevoAlto);
+            plataforma.setBounds(nuevoX, nuevoY, nuevoAncho, nuevoAlto);
         }
+
+        revalidate(); // Actualiza el layout
+        repaint(); // Redibuja el componente
     }
+
+
 
     private void posicionarPersonajeCentro() {
         int panelWidth = getWidth();
@@ -143,25 +153,31 @@ public class Lienzo extends JPanel implements KeyListener {
                 int posicionInferiorPersonaje = imagenPersonaje.getY() + imagenPersonaje.getHeight();
                 int posicionSuperiorPlataforma = plataforma.getY();
 
-                if (posicionInferiorPersonaje <= posicionSuperiorPlataforma + 5) {
-                    int y = plataforma.getY() - imagenPersonaje.getHeight();
+                // Si colisiona desde arriba
+                if (posicionInferiorPersonaje >= posicionSuperiorPlataforma && !enSalto) {
+                    int y = posicionSuperiorPlataforma - imagenPersonaje.getHeight(); // Ajuste para quedar sobre la plataforma
                     imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
-                    enSalto = false;
+                    enSalto = false; // Finaliza el salto
                     colisionDetectada = true;
                     break;
                 }
             }
         }
 
-        if (!colisionDetectada && !enSalto) {
+        // Si no hay colisión detectada, aplica gravedad
+        if (!colisionDetectada) {
             aplicarGravedad();
         }
     }
 
+
+
+
+
     private void aplicarGravedad() {
         if (!enSalto) {
             int y = imagenPersonaje.getY();
-            int nuevoY = y + 5;
+            int nuevoY = y + 4; // Cambia 5 a 1 para aplicar gravedad más suave
 
             boolean sobrePlataforma = false;
             for (Plataforma plataforma : plataformas) {
@@ -181,6 +197,8 @@ public class Lienzo extends JPanel implements KeyListener {
             }
         }
     }
+
+
 
 
     @Override
@@ -233,7 +251,7 @@ public class Lienzo extends JPanel implements KeyListener {
 
     private void iniciarSalto() {
         enSalto = true;
-        int alturaMaxima = 140;
+        int alturaMaxima = 200;
         int velocidad = 10;
         int delay = 20;
 

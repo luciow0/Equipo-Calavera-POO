@@ -18,20 +18,12 @@ public abstract class Obstaculo extends JLabel {
         setIcon(new ImageIcon(rutaImagen));
     }
 
-    // Método que define qué hace el obstáculo en cada actualización (puede moverse, o no)
     public abstract void actualizar();
 
-    // Método para verificar colisiones con el personaje
-    public boolean colisionaCon(JLabel character) {
-        Rectangle obstaculoRect = new Rectangle(x, y, ancho, alto);
-        Rectangle personajeRect = new Rectangle(character.getX(), character.getY(), character.getWidth(), character.getHeight());
-        return obstaculoRect.intersects(personajeRect);
+    public boolean colisionaCon(JLabel personaje) {
+        Rectangle plataformaRect = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        Rectangle personajeRect = new Rectangle(personaje.getX(), personaje.getY(), personaje.getWidth(), personaje.getHeight());
+        return plataformaRect.intersects(personajeRect);
     }
 
-    /*protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (getimagen != null) { // Dibuja solo si hay una imagen
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-        }
-    }*/
 }
