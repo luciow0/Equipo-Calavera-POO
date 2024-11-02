@@ -15,21 +15,26 @@ public abstract class Cigarrillo {
 
     public Cigarrillo(){}
 
-    public javax.swing.JLabel getImagenPanel(String path) {
+    /*public javax.swing.JLabel getImagenPanel(String path) {
         // Crear un nuevo JPanel
         JPanel panel = new JPanel();
+        // Cargar el icono desde la ruta especificada
+        ImageIcon icono = new ImageIcon(path);
+        // Crear un JLabel con el icono
+        JLabel imagenLabel = new JLabel(icono);
+        // Añadir el JLabel al panel
+        panel.add(imagenLabel);
+        return imagenLabel; // Devolver el panel con la imagen configurada
+    }*/
 
+    public JLabel getImagenLabel(String path) {
         // Cargar el icono desde la ruta especificada
         ImageIcon icono = new ImageIcon(path);
 
         // Crear un JLabel con el icono
-        JLabel imagenLabel = new JLabel(icono);
-
-        // Añadir el JLabel al panel
-        panel.add(imagenLabel);
-
-        return imagenLabel; // Devolver el panel con la imagen configurada
+        return new JLabel(icono); // Devolver el JLabel directamente
     }
+
 
     public int getVida() {
         return vida;

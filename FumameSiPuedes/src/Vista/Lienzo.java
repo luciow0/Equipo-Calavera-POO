@@ -29,13 +29,13 @@ public class Lienzo extends JPanel implements KeyListener {
 
         // setear imagen de personaje recibiendo por argumento en el constructor el path
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
-            imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
+            imagenPersonaje = cigarrilloSmooki.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
         }
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
-            imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
+            imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
         }
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
-            imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
+            imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
         }
 
         add(imagenPersonaje); // aniade la imagen al jpanel lienzo
@@ -109,13 +109,13 @@ public class Lienzo extends JPanel implements KeyListener {
 
         if (moviendoIzquierda && x - step >= 0) {
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
-                imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-izquierda.png");
+                imagenPersonaje = cigarrilloSmooki.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-izquierda.png");
             }
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
-                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-zquierda.png");
+                imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-zquierda.png");
             }
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
-                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierdapng.png");
+                imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierdapng.png");
             }
             x = imagenPersonaje.getX();
             y = imagenPersonaje.getY();
@@ -126,13 +126,13 @@ public class Lienzo extends JPanel implements KeyListener {
         }
         if (moviendoDerecha && x + step + width <= panelWidth) {
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
-                imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
+                imagenPersonaje = cigarrilloSmooki.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
             }
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
-                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
+                imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
             }
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
-                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
+                imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
             }
             x = imagenPersonaje.getX();
             y = imagenPersonaje.getY();
