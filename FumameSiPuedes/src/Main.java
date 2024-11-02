@@ -1,7 +1,7 @@
-package FumameSiPuedes.src.Vista;
+package FumameSiPuedes.src;
 
-import FumameSiPuedes.src.Vista.Lienzo;
-import FumameSiPuedes.src.Vista.VentanaInicio;
+import Vista.Lienzo;
+import Vista.VentanaInicio;
 
 import javax.swing.*;
 

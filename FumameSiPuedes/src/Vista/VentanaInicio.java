@@ -1,4 +1,4 @@
-package FumameSiPuedes.src.Vista;
+package Vista;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +10,7 @@ public class VentanaInicio extends JFrame {
     private String rutaImagen1;
     private String rutaImagen2;
     private String rutaImagen3;
+    String eleccion;
 
     public VentanaInicio(String rutaImagen1, String rutaImagen2, String rutaImagen3) {
         this.rutaImagen1 = rutaImagen1;
@@ -51,12 +52,15 @@ public class VentanaInicio extends JFrame {
 
                     if (finalX == 1){
                         JOptionPane.showMessageDialog(null,"Smooki elegido, gran eleccion!");
+                        eleccion = rutasImagenes[finalX];
                     }
                     else if (finalX == 2){
                         JOptionPane.showMessageDialog(null,"MentaSplash elegido, gran eleccion!");
+                        eleccion = rutasImagenes[finalX];
                     }
                     else if (finalX == 3){
                         JOptionPane.showMessageDialog(null,"amigo por que elegiste a la mina alto puto perrite lo portas?");
+                        eleccion = rutasImagenes[finalX];
                     }
                 }
             });
@@ -74,7 +78,7 @@ public class VentanaInicio extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame ventana = new JFrame("Fumame si puedes)");
-                Lienzo lienzo = new Lienzo(); // Crear una instancia de Lienzo
+                Vista.Lienzo lienzo = new Vista.Lienzo(eleccion); // Crear una instancia de Lienzo
                 ventana.add(lienzo); // Agregar el lienzo al frame
 
                 ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

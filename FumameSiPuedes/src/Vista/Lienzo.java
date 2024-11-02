@@ -1,4 +1,4 @@
-package FumameSiPuedes.src.Vista;
+package Vista;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +10,9 @@ public class Lienzo extends JPanel implements KeyListener {
 
     private Image imagenFondo;
     private Modelo.CigarrilloSmooki cigarrilloSmooki = new Modelo.CigarrilloSmooki();
+    private Modelo.CigarrilloLazySlim cigarrilloLazySlim = new Modelo.CigarrilloLazySlim();
+    private Modelo.CigarrilloMentaSplash cigarrilloMentaSplash = new Modelo.CigarrilloMentaSplash();
+
     private JLabel imagenPersonaje;
     private boolean enSalto = false;
     private boolean moviendoIzquierda = false;
@@ -17,15 +20,26 @@ public class Lienzo extends JPanel implements KeyListener {
     private ArrayList<Plataforma> plataformas = new ArrayList<>();
     private Timer timer;
 
-    public Lienzo() {
+    public Lienzo(String eleccion) {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
-        // imagenFondo = new ImageIcon("/home/pipeta/Documents/Code/TP_POO/Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
+
 
         addKeyListener(this);
         setFocusable(true);
         setLayout(null);
 
-        imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
+        if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
+            imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
+
+        }
+
+        if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
+            imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
+        }
+
+        if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
+            imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
+        }
         add(imagenPersonaje);
 
         crearPlataformas(); // Crear plataformas pero no redimensionarlas aún
