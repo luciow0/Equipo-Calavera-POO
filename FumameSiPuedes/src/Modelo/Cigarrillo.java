@@ -31,8 +31,6 @@ public abstract class Cigarrillo {
         return imagenLabel; // Devolver el panel con la imagen configurada
     }
 
-
-
     public int getVida() {
         return vida;
     }

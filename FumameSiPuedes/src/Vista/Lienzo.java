@@ -54,7 +54,7 @@ public class Lienzo extends JPanel implements KeyListener {
 
         // timer
         Timer timer = new Timer(20, e -> {
-            actualizarMovimiento();
+            actualizarMovimiento(eleccion);
             verificarColisiones();
         });
         timer.start();
@@ -100,7 +100,7 @@ public class Lienzo extends JPanel implements KeyListener {
         imagenPersonaje.setBounds(posicionX, posicionY, personajeWidth, personajeHeight);
     }
 
-    private void actualizarMovimiento() {
+    private void actualizarMovimiento(String eleccion) {
         int step = 5;
         int x = imagenPersonaje.getX();
         int y = imagenPersonaje.getY();
@@ -108,9 +108,36 @@ public class Lienzo extends JPanel implements KeyListener {
         int panelWidth = getWidth();
 
         if (moviendoIzquierda && x - step >= 0) {
+            if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
+                imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-izquierda.png");
+            }
+            if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
+                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-zquierda.png");
+            }
+            if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
+                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierdapng.png");
+            }
+            x = imagenPersonaje.getX();
+            y = imagenPersonaje.getY();
+            width = imagenPersonaje.getWidth();
+            panelWidth = getWidth();
             imagenPersonaje.setLocation(x - step, y);
+
         }
         if (moviendoDerecha && x + step + width <= panelWidth) {
+            if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
+                imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
+            }
+            if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
+                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
+            }
+            if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
+                imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
+            }
+            x = imagenPersonaje.getX();
+            y = imagenPersonaje.getY();
+            width = imagenPersonaje.getWidth();
+            panelWidth = getWidth();
             imagenPersonaje.setLocation(x + step, y);
         }
     }
