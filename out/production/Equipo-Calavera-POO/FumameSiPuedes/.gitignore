@@ -27,3 +27,67 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos generados por el entorno
+*.iml
+.idea/
+out/
+target/
+build/
+
+# Archivos de IntelliJ IDEA
+.idea/
+*.iws
+*.ipr
+*.iml
+
+# Configuración del sistema operativo
+*.DS_Store
+*.vscode/
+
+# Archivos de compilación
+*.class
+*.jar
+*.war
+*.ear
+
+# Archivos de configuración específicos
+*.log
+*.tmp
+*.lock
+
+# Librerías y dependencias
+lib/
+*.jar
+
+# Archivos de compilación de Maven
+.mvn/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Archivos de compilación de Gradle
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# Archivos de configuración para el sistema de compilación
+.gradle/
+!**/gradle-wrapper.jar
+!**/gradle-wrapper.properties
+.wrapper/
+
+# Configuración del editor de texto
+.vscode/
+*.swp
+
+# Archivos de pruebas y resultados
+test-output/

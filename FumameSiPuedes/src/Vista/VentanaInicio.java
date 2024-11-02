@@ -52,15 +52,15 @@ public class VentanaInicio extends JFrame {
 
                     if (finalX == 1){
                         JOptionPane.showMessageDialog(null,"Smooki elegido, gran eleccion!");
-                        eleccion = rutasImagenes[finalX];
+                        eleccion = rutasImagenes[finalX - 1];
                     }
                     else if (finalX == 2){
                         JOptionPane.showMessageDialog(null,"MentaSplash elegido, gran eleccion!");
-                        eleccion = rutasImagenes[finalX];
+                        eleccion = rutasImagenes[finalX - 1];
                     }
                     else if (finalX == 3){
                         JOptionPane.showMessageDialog(null,"amigo por que elegiste a la mina alto puto perrite lo portas?");
-                        eleccion = rutasImagenes[finalX];
+                        eleccion = rutasImagenes[finalX - 1];
                     }
                 }
             });
