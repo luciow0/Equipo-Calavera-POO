@@ -113,9 +113,9 @@ public class Lienzo extends JPanel implements KeyListener {
             if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")) {
                 imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-izquierda.png"));
             } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-izquierda.png"));
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-zquierda.png"));
             } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierda.png"));
+                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierdapng.png"));
             }
             imagenPersonaje.setLocation(x - step, y);
         }
