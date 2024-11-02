@@ -117,6 +117,10 @@ public class Lienzo extends JPanel implements KeyListener {
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
                 imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierdapng.png");
             }
+            x = imagenPersonaje.getX();
+            y = imagenPersonaje.getY();
+            width = imagenPersonaje.getWidth();
+            panelWidth = getWidth();
             imagenPersonaje.setLocation(x - step, y);
 
         }
@@ -130,6 +134,10 @@ public class Lienzo extends JPanel implements KeyListener {
             if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
                 imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
             }
+            x = imagenPersonaje.getX();
+            y = imagenPersonaje.getY();
+            width = imagenPersonaje.getWidth();
+            panelWidth = getWidth();
             imagenPersonaje.setLocation(x + step, y);
         }
     }
