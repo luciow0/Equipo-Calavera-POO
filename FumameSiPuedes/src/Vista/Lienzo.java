@@ -23,34 +23,26 @@ public class Lienzo extends JPanel implements KeyListener {
     public Lienzo(String eleccion) {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
 
-
         addKeyListener(this);
         setFocusable(true);
         setLayout(null);
 
-//<<<<<<< Updated upstream
+        // setear imagen de personaje recibiendo por argumento en el constructor el path
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"){
             imagenPersonaje = cigarrilloSmooki.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
-
         }
-
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"){
             imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
         }
-
         if (eleccion == "FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"){
             imagenPersonaje = cigarrilloMentaSplash.getImagenPanel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
         }
-//=======
-            
 
-//>>>>>>> Stashed changes
-        add(imagenPersonaje);
+        add(imagenPersonaje); // aniade la imagen al jpanel lienzo
+        crearPlataformas(); // Crear plataformas pero no redimensionarlas aún, invoca metodo
+        posicionarPersonajeCentro(); // invoca metodo posicionar personaje
 
-        crearPlataformas(); // Crear plataformas pero no redimensionarlas aún
-
-        posicionarPersonajeCentro();
-
+        // añadir listener
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -58,18 +50,20 @@ public class Lienzo extends JPanel implements KeyListener {
                 posicionarPersonajeCentro(); // Posiciona el personaje después de redimensionar
             }
         });
+        // añadir listener
 
+        // timer
         Timer timer = new Timer(20, e -> {
             actualizarMovimiento();
             verificarColisiones();
         });
         timer.start();
+        // timer
     }
 
     private void crearPlataformas() {
         // Plataforma invisible en el piso (por ejemplo, altura del 5% de la pantalla)
         plataformas.add(new Plataforma(0, 0.95, 1.0, 0.15, null));  // `null` como imagen para que sea invisible
-
         // Agregar las demás plataformas visibles
         plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.05, "ruta/a/la/imagen/de/plataforma.png"));
         plataformas.add(new Plataforma(0.5, 0.8, 0.2, 0.05, "ruta/a/la/imagen/de/plataforma.png"));
