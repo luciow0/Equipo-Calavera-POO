@@ -151,10 +151,10 @@ public class Lienzo extends JPanel implements KeyListener {
         for (Plataforma plataforma : plataformas) {
             if (plataforma.colisionaCon(imagenPersonaje)) {
                 int posicionInferiorPersonaje = imagenPersonaje.getY() + imagenPersonaje.getHeight();
-                int posicionSuperiorPlataforma = plataforma.getY();
+                int posicionSuperiorPlataforma = plataforma.getY() + plataforma.getHeight();
 
                 // Si colisiona desde arriba
-                if (posicionInferiorPersonaje >= posicionSuperiorPlataforma && enSalto) {
+                if (posicionInferiorPersonaje >= posicionSuperiorPlataforma && !enSalto) {
                     int y = posicionSuperiorPlataforma - imagenPersonaje.getHeight(); // Ajuste para quedar sobre la plataforma
                     imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
                     enSalto = false; // Finaliza el salto
@@ -177,7 +177,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private void aplicarGravedad() {
         if (!enSalto) {
             int y = imagenPersonaje.getY();
-            int nuevoY = y + 4; // Cambia 5 a 1 para aplicar gravedad más suave
+            int nuevoY = y + 5; // Cambia 5 a 1 para aplicar gravedad más suave
 
             boolean sobrePlataforma = false;
             for (Plataforma plataforma : plataformas) {
