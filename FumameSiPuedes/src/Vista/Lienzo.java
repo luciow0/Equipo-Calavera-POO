@@ -151,7 +151,7 @@ public class Lienzo extends JPanel implements KeyListener {
         for (Plataforma plataforma : plataformas) {
             if (plataforma.colisionaCon(imagenPersonaje)) {
                 int posicionInferiorPersonaje = imagenPersonaje.getY() + imagenPersonaje.getHeight();
-                int posicionSuperiorPlataforma = plataforma.getY() + plataforma.getHeight();
+                int posicionSuperiorPlataforma = plataforma.getY() + 1;//ahora si que no vibra mas (y + height = posicionInferior)
 
                 // Si colisiona desde arriba
                 if (posicionInferiorPersonaje >= posicionSuperiorPlataforma && !enSalto) {
