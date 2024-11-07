@@ -148,18 +148,25 @@ public class Lienzo extends JPanel implements KeyListener {
     private void verificarColisiones() {
         boolean colisionDetectada = false;
 
+        // Definir la subhitbox para los pies del personaje
+        int alturaHitboxPies = 1; // Define un pequeño margen para la hitbox de los pies
+        int posicionInferiorPies = imagenPersonaje.getY() + imagenPersonaje.getHeight() - alturaHitboxPies;
+
         for (Plataforma plataforma : plataformas) {
             if (plataforma.colisionaCon(imagenPersonaje)) {
-                int posicionInferiorPersonaje = imagenPersonaje.getY() + imagenPersonaje.getHeight();
-                int posicionSuperiorPlataforma = plataforma.getY() + 1;//ahora si que no vibra mas (y + height = posicionInferior)
+                int posicionSuperiorPlataforma = plataforma.getY() + 1;
 
-                // Si colisiona desde arriba
-                if (posicionInferiorPersonaje >= posicionSuperiorPlataforma && !enSalto) {
+                // Si la subhitbox de los pies colisiona con la plataforma y el personaje está cayendo
+                if (posicionInferiorPies >= posicionSuperiorPlataforma && imagenPersonaje.getY() + imagenPersonaje.getHeight() <= plataforma.getY() + plataforma.getHeight()) {
                     int y = posicionSuperiorPlataforma - imagenPersonaje.getHeight(); // Ajuste para quedar sobre la plataforma
-                    imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
-                    enSalto = false; // Finaliza el salto
-                    colisionDetectada = true;
-                    break;
+
+                    // Solo actualizar la posición si el personaje está cayendo o no está bien posicionado
+                    if (imagenPersonaje.getY() != y) {
+                        imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
+                        enSalto = false; // Finaliza el salto para que caiga en la plataforma
+                        colisionDetectada = true;
+                        break;
+                    }
                 }
             }
         }
@@ -169,6 +176,8 @@ public class Lienzo extends JPanel implements KeyListener {
             aplicarGravedad();
         }
     }
+
+
 
 
 
