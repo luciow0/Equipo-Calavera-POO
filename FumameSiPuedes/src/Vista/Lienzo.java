@@ -44,12 +44,12 @@ public class Lienzo extends JPanel implements KeyListener {
 
 
         // Setear imagen de personaje recibiendo por argumento en el constructor el path
-        if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")){
-            imagenPersonaje = cigarrilloSmooki.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
-        } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png")){
-            imagenPersonaje = cigarrilloMentaSplash.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png");
-        } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png")){
-            imagenPersonaje = cigarrilloLazySlim.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png");
+        if (eleccion.equals(smokiDerechaParado)){
+            imagenPersonaje = cigarrilloSmooki.getImagenLabel(smokiDerechaParado);
+        } else if (eleccion.equals(mintyDerechaParado)){
+            imagenPersonaje = cigarrilloMentaSplash.getImagenLabel(mintyDerechaParado);
+        } else if (eleccion.equals(lazyslimDerechaParado)){
+            imagenPersonaje = cigarrilloLazySlim.getImagenLabel(lazyslimDerechaParado);
         }
 
         add(imagenPersonaje); // Añade la imagen al JPanel lienzo
