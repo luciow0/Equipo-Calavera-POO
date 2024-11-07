@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import FumameSiPuedes.src.Modelo.Plataforma;
 
+
 public class Lienzo extends JPanel implements KeyListener {
 
     private Image imagenFondo;
@@ -19,6 +20,10 @@ public class Lienzo extends JPanel implements KeyListener {
     private boolean moviendoDerecha = false;
     private ArrayList<Plataforma> plataformas = new ArrayList<>();
     private Timer timer;
+
+    //index para los pasos
+    private int pasoIzquierda = 0;
+    private int pasoDerecha = 0;
 
     public Lienzo(String eleccion) {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
@@ -132,30 +137,121 @@ public class Lienzo extends JPanel implements KeyListener {
         int y = imagenPersonaje.getY();
         int width = imagenPersonaje.getWidth();
         int panelWidth = getWidth();
+        long milis = 20;
 
         // Movimiento hacia la izquierda
         if (moviendoIzquierda && x - step >= 0) {
             // Cambiar imagen a la versión "izquierda"
-            if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-izquierda.png"));
-            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-zquierda.png"));
-            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-izquierdapng.png"));
+            if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png")) {
+                // Alterna entre las imágenes de caminar a la izquierda
+                if (pasoIzquierda % 2 == 0) {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                } else {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda-caminando.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                }
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png")) {
+                if (pasoIzquierda % 2 == 0) {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                } else {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda-caminando.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                }
+
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png")) {
+                if (pasoIzquierda % 2 == 0) {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                } else {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda-caminando.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                }
             }
+            pasoIzquierda++;
             imagenPersonaje.setLocation(x - step, y);
         }
 
         // Movimiento hacia la derecha
         if (moviendoDerecha && x + step + width <= panelWidth) {
             // Cambiar imagen a la versión "derecha"
-            if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png"));
-            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Menta_Splash-removebg-preview.png"));
-            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png")) {
-                imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Lazy_Slim-removebg-preview.png"));
+            if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png")) {
+                // Alterna entre las imágenes de caminar a la derecha
+                    if (pasoDerecha % 2 == 0) {
+                        imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png"));
+                        try{
+                            Thread.sleep(milis);
+                        } catch (InterruptedException ex) {
+                            System.out.println("el hilo ha sido interrumpido");
+                        }
+                    } else {
+                        imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png"));
+                        try{
+                            Thread.sleep(milis);
+                        } catch (InterruptedException ex) {
+                            System.out.println("el hilo ha sido interrumpido");
+                        }
+                    }
+
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png")) {
+                if (pasoDerecha % 2 == 0) {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                } else {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha-caminando.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                }
+            } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png")) {
+                if (pasoDerecha % 2 == 0) {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                } else {
+                    imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha-caminando.png"));
+                    try{
+                        Thread.sleep(milis);
+                    } catch (InterruptedException ex) {
+                        System.out.println("el hilo ha sido interrumpido");
+                    }
+                }
             }
+            pasoDerecha++;
             imagenPersonaje.setLocation(x + step, y);
         }
     }
@@ -170,11 +266,11 @@ public class Lienzo extends JPanel implements KeyListener {
 
         for (Plataforma plataforma : plataformas) {
             if (plataforma.colisionaCon(imagenPersonaje)) {
-                int posicionSuperiorPlataforma = plataforma.getY() + 1;
+                int posicionSuperiorPlataforma = plataforma.getY();
 
                 // Si la subhitbox de los pies colisiona con la plataforma y el personaje está cayendo
                 if (posicionInferiorPies >= posicionSuperiorPlataforma && imagenPersonaje.getY() + imagenPersonaje.getHeight() <= plataforma.getY() + plataforma.getHeight()) {
-                    int y = posicionSuperiorPlataforma - imagenPersonaje.getHeight(); // Ajuste para quedar sobre la plataforma
+                    int y = (posicionSuperiorPlataforma - imagenPersonaje.getHeight()) + 1; // Ajuste para quedar sobre la plataforma
 
                     // Solo actualizar la posición si el personaje está cayendo o no está bien posicionado
                     if (imagenPersonaje.getY() != y) {
@@ -208,7 +304,7 @@ public class Lienzo extends JPanel implements KeyListener {
             for (Plataforma plataforma : plataformas) {
                 if (plataforma.colisionaCon(imagenPersonaje)) {
                     int yPlataforma = plataforma.getY() - imagenPersonaje.getHeight();
-                    imagenPersonaje.setLocation(imagenPersonaje.getX(), yPlataforma);
+                    imagenPersonaje.setLocation(imagenPersonaje.getX(), yPlataforma + 1);
                     sobrePlataforma = true;
                     break;
                 }
