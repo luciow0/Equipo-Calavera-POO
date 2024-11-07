@@ -27,6 +27,22 @@ public class Lienzo extends JPanel implements KeyListener {
         setFocusable(true);
         setLayout(null);
 
+        String smokiDerechaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
+        String smokiDerechaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png";
+        String smokiIzquierdaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda.png";
+        String smokiIzquierdaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda-caminando.png";
+
+        String lazyslimDerechaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
+        String lazyslimDerechaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
+        String lazyslimIzquierdaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda.png";
+        String lazyslimIzquierdaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda-caminando.png";
+
+        String mintyDerechaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png";
+        String mintyDerechaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha-caminando.png";
+        String mintyIzquierdaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda.png";
+        String mintyIzquierdaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda-caminando.png";
+
+
         // Setear imagen de personaje recibiendo por argumento en el constructor el path
         if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png")){
             imagenPersonaje = cigarrilloSmooki.getImagenLabel("FumameSiPuedes/src/Vista/imgs/Smooki-removebg-preview(1).png");
@@ -65,8 +81,8 @@ public class Lienzo extends JPanel implements KeyListener {
         plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05)); // Sin imagen, solo color
 
         // Agregar las demás plataformas visibles
-        plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.05)); // Proporciones relativas
-        plataformas.add(new Plataforma(0.5, 0.8, 0.2, 0.05)); // Proporciones relativas
+        plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.02)); // Proporciones relativas
+        plataformas.add(new Plataforma(0.5, 0.8, 0.2, 0.02)); // Proporciones relativas
 
         for (Plataforma plataforma : plataformas) {
             add(plataforma);
