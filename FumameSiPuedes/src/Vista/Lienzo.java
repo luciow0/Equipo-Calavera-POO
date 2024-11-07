@@ -27,20 +27,20 @@ public class Lienzo extends JPanel implements KeyListener {
         setFocusable(true);
         setLayout(null);
 
-        String smokiDerechaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
-        String smokiDerechaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png";
-        String smokiIzquierdaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda.png";
-        String smokiIzquierdaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda-caminando.png";
+        String smokiDerechaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
+        String smokiDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png";
+        String smokiIzquierdaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda.png";
+        String smokiIzquierdaCaminando = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda-caminando.png";
 
-        String lazyslimDerechaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
-        String lazyslimDerechaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
-        String lazyslimIzquierdaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda.png";
-        String lazyslimIzquierdaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda-caminando.png";
+        String lazyslimDerechaParado = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
+        String lazyslimDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
+        String lazyslimIzquierdaParado = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda.png";
+        String lazyslimIzquierdaCaminando = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda-caminando.png";
 
-        String mintyDerechaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png";
-        String mintyDerechaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha-caminando.png";
-        String mintyIzquierdaParado = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda.png";
-        String mintyIzquierdaCaminando = "Equipo-Calavera-POO/FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda-caminando.png";
+        String mintyDerechaParado = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png";
+        String mintyDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha-caminando.png";
+        String mintyIzquierdaParado = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda.png";
+        String mintyIzquierdaCaminando = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda-caminando.png";
 
 
         // Setear imagen de personaje recibiendo por argumento en el constructor el path
