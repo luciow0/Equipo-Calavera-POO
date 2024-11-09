@@ -59,7 +59,7 @@ public class VentanaInicio extends JFrame {
                         eleccion = rutasImagenes[finalX - 1];
                     }
                     else if (finalX == 3){
-                        JOptionPane.showMessageDialog(null,"amigo por que elegiste a la mina alto puto perrite lo portas?");
+                        JOptionPane.showMessageDialog(null,"LazySlim elegida, gran eleccion!");
                         eleccion = rutasImagenes[finalX - 1];
                     }
                 }
