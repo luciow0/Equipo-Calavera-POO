@@ -18,8 +18,6 @@ public abstract class Obstaculo extends JLabel {
         setIcon(new ImageIcon(rutaImagen));
     }
 
-    public abstract void actualizar();
-
     public boolean colisionaCon(JLabel personaje) {
         Rectangle plataformaRect = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         Rectangle personajeRect = new Rectangle(personaje.getX(), personaje.getY(), personaje.getWidth(), personaje.getHeight());

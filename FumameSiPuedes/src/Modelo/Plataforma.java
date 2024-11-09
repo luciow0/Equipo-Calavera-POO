@@ -37,11 +37,6 @@ public class Plataforma extends Obstaculo {
     }
 
     @Override
-    public void actualizar() {
-        // Lógica de movimiento si fuera necesario
-    }
-
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.fillRect(0, 0, getWidth(), getHeight()); // Dibuja un rectángulo que llena la plataforma
