@@ -298,7 +298,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private void aplicarGravedad() {
         if (!enSalto) {
             int y = imagenPersonaje.getY();
-            int nuevoY = y + 5; // Cambia 5 a 1 para aplicar gravedad más suave
+            int nuevoY = y + 10; // Cambia 5 a 1 para aplicar gravedad más suave
 
             boolean sobrePlataforma = false;
             for (Plataforma plataforma : plataformas) {
@@ -321,21 +321,22 @@ public class Lienzo extends JPanel implements KeyListener {
 
 
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        // Dibujar imagen de fondo redimensionada para llenar el ancho y alto del panel
         g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
 
-        // Redimensionar plataformas antes de dibujar
+        // Redimensionar y dibujar plataformas
         redimensionarPlataformas();
 
-        // Dibujar plataformas
         g.setColor(Color.BLACK);
         for (Plataforma plataforma : plataformas) {
             g.fillRect(plataforma.getX(), plataforma.getY(), plataforma.getWidth(), plataforma.getHeight());
         }
     }
+
 
 
     @Override

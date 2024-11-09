@@ -10,7 +10,7 @@ public class VentanaInicio extends JFrame {
     private String rutaImagen1;
     private String rutaImagen2;
     private String rutaImagen3;
-    String eleccion;
+    private String eleccion;
 
     public VentanaInicio(String rutaImagen1, String rutaImagen2, String rutaImagen3) {
         this.rutaImagen1 = rutaImagen1;
@@ -48,18 +48,14 @@ public class VentanaInicio extends JFrame {
             botonSeleccionar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Acción para seleccionar el personaje
-
-                    if (finalX == 1){
-                        JOptionPane.showMessageDialog(null,"Smooki elegido, gran eleccion!");
+                    if (finalX == 1) {
+                        JOptionPane.showMessageDialog(null, "Smooki elegido, gran elección!");
                         eleccion = rutasImagenes[finalX - 1];
-                    }
-                    else if (finalX == 2){
-                        JOptionPane.showMessageDialog(null,"MentaSplash elegido, gran eleccion!");
+                    } else if (finalX == 2) {
+                        JOptionPane.showMessageDialog(null, "MentaSplash elegido, gran elección!");
                         eleccion = rutasImagenes[finalX - 1];
-                    }
-                    else if (finalX == 3){
-                        JOptionPane.showMessageDialog(null,"amigo por que elegiste a la mina alto puto perrite lo portas?");
+                    } else if (finalX == 3) {
+                        JOptionPane.showMessageDialog(null, "Amigo, ¿por qué elegiste a la mina? ¿Alto puto perrite lo portas?");
                         eleccion = rutasImagenes[finalX - 1];
                     }
                 }
@@ -69,17 +65,17 @@ public class VentanaInicio extends JFrame {
 
         add(panelCentro, BorderLayout.CENTER);
 
-
-
         // Panel de botón de inicio
         JPanel panelInicio = new JPanel();
         JButton botonInicio = new JButton("Empezar Juego");
         botonInicio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame ventana = new JFrame("Fumame si puedes)");
+                JFrame ventana = new JFrame("Fumame si puedes");
+                ventana.setLayout(new BorderLayout()); // Usar BorderLayout en la ventana del juego
+
                 Vista.Lienzo lienzo = new Vista.Lienzo(eleccion); // Crear una instancia de Lienzo
-                ventana.add(lienzo); // Agregar el lienzo al frame
+                ventana.add(lienzo, BorderLayout.CENTER); // Agregar el lienzo en el centro del frame
 
                 ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 ventana.setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximizar para usar todo el tamaño de pantalla
@@ -95,9 +91,6 @@ public class VentanaInicio extends JFrame {
                 });
 
                 ventana.setVisible(true);
-
-
-                //setInicioJuego(true);
             }
         });
         panelInicio.add(botonInicio);
