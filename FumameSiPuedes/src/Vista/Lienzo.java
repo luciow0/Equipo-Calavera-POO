@@ -28,8 +28,10 @@ public class Lienzo extends JPanel implements KeyListener {
     private int pasoIzquierda = 0;
     private int pasoDerecha = 0;
 
+    private int desplazamientoVertical = 0;
+
     public Lienzo(String eleccion) {
-        imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondo.jpg").getImage();
+        imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondoEstirado.jpg").getImage();
 
         addKeyListener(this);
         setFocusable(true);
@@ -158,7 +160,6 @@ public class Lienzo extends JPanel implements KeyListener {
         imagenPersonaje.setBounds(posicionX, posicionY, personajeWidth, personajeHeight);
     }
 
-    private int desplazamientoVertical = 0;
 
     private void actualizarMovimiento(String eleccion) {
         int step = 5;
@@ -348,10 +349,15 @@ public class Lienzo extends JPanel implements KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Dibujar imagen de fondo con desplazamiento vertical
-        g.drawImage(imagenFondo, 0, +desplazamientoVertical, getWidth(), getHeight(), this); // Fondo extendido
+        // Calcula la posición del recorte basado en offsetY
+        int altoVentana = getHeight();
+        int yRecorte = Math.max(0, 1280 - altoVentana - desplazamientoVertical);
 
-        // Dibujar plataformas actualizadas
+        // Dibuja la sección visible de la imagen de fondo
+        g.drawImage(imagenFondo, 0, 0, getWidth(), altoVentana,
+                0, yRecorte, 426, yRecorte + altoVentana, this);
+
+        // Redibujar plataformas y otros elementos con desplazamiento offsetY
         redimensionarPlataformas();
         g.setColor(Color.BLACK);
         for (Plataforma plataforma : plataformas) {
