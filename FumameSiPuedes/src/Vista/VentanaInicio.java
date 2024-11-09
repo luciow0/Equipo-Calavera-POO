@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Vista.Lienzo;
 
 public class VentanaInicio extends JFrame {
     private boolean inicioJuego = false;
@@ -77,10 +78,14 @@ public class VentanaInicio extends JFrame {
                 Vista.Lienzo lienzo = new Vista.Lienzo(eleccion); // Crear una instancia de Lienzo
                 ventana.add(lienzo, BorderLayout.CENTER); // Agregar el lienzo en el centro del frame
 
+
+
                 ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 ventana.setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximizar para usar todo el tamaño de pantalla
                 ventana.setResizable(true); // Permitir el redimensionado
                 ventana.setLocationRelativeTo(null); // Centrar la ventana
+
+                lienzo.reproducirAudioEnLoop("FumameSiPuedes/src/Musica/musicaFumameSipuedes.wav");
 
                 // Escuchar cambios de tamaño en la ventana para redibujar el lienzo
                 ventana.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -91,6 +96,7 @@ public class VentanaInicio extends JFrame {
                 });
 
                 ventana.setVisible(true);
+
             }
         });
         panelInicio.add(botonInicio);

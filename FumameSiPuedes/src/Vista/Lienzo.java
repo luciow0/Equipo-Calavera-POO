@@ -1,8 +1,11 @@
 package Vista;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import FumameSiPuedes.src.Modelo.Plataforma;
 
@@ -32,6 +35,7 @@ public class Lienzo extends JPanel implements KeyListener {
         setFocusable(true);
         setLayout(null);
 
+
         String smokiDerechaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
         String smokiDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png";
         String smokiIzquierdaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda.png";
@@ -57,6 +61,9 @@ public class Lienzo extends JPanel implements KeyListener {
             imagenPersonaje = cigarrilloLazySlim.getImagenLabel(lazyslimDerechaParado);
         }
 
+        // Reproducir el audio en loop
+        reproducirAudioEnLoop("C:\\Users\\HP\\Documents\\GitHub\\Equipo-Calavera-POO\\FumameSiPuedes\\src\\Musica\\musicaFumameSipuedes.wav");
+
         add(imagenPersonaje); // Añade la imagen al JPanel lienzo
         crearPlataformas(); // Crear plataformas pero no redimensionarlas aún, invoca metodo
         posicionarPersonajeCentro(); // Invoca metodo para posicionar personaje
@@ -76,6 +83,26 @@ public class Lienzo extends JPanel implements KeyListener {
             verificarColisiones();
         });
         timer.start();
+    }
+
+
+    // Método para reproducir el audio en loop
+    public void reproducirAudioEnLoop(String rutaArchivo) {
+        try {
+            // Cargar el archivo de audio
+            File archivoAudio = new File(rutaArchivo);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(archivoAudio);
+
+            // Obtener el clip de audio
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+
+            // Reproducir el audio en loop infinito
+            clip.loop(Clip.LOOP_CONTINUOUSLY);  // Loops indefinitely
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
     private void crearPlataformas() {

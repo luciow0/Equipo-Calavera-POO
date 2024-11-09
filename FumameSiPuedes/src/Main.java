@@ -13,7 +13,10 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             VentanaInicio ventanaInicioJuego = new VentanaInicio(rutaImagen1, rutaImagen2, rutaImagen3);
+
             ventanaInicioJuego.setVisible(true);
+
+
         });
     }
 }
