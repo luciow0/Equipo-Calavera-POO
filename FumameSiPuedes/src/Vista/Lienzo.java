@@ -26,7 +26,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private int pasoDerecha = 0;
 
     public Lienzo(String eleccion) {
-        imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/fondo.jpg").getImage();
+        imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondo.jpg").getImage();
 
         addKeyListener(this);
         setFocusable(true);
