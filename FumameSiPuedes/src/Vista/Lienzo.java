@@ -131,6 +131,8 @@ public class Lienzo extends JPanel implements KeyListener {
         imagenPersonaje.setBounds(posicionX, posicionY, personajeWidth, personajeHeight);
     }
 
+    private int desplazamientoVertical = 0;
+
     private void actualizarMovimiento(String eleccion) {
         int step = 5;
         int x = imagenPersonaje.getX();
@@ -146,18 +148,10 @@ public class Lienzo extends JPanel implements KeyListener {
                 // Alterna entre las imágenes de caminar a la izquierda
                 if (pasoIzquierda % 2 == 0) {
                     imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda.png"));
-                    try{
-                        Thread.sleep(milis);
-                    } catch (InterruptedException ex) {
-                        System.out.println("el hilo ha sido interrumpido");
-                    }
+
                 } else {
                     imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda-caminando.png"));
-                    try{
-                        Thread.sleep(milis);
-                    } catch (InterruptedException ex) {
-                        System.out.println("el hilo ha sido interrumpido");
-                    }
+
                 }
             } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png")) {
                 if (pasoIzquierda % 2 == 0) {
@@ -204,18 +198,10 @@ public class Lienzo extends JPanel implements KeyListener {
                 // Alterna entre las imágenes de caminar a la derecha
                     if (pasoDerecha % 2 == 0) {
                         imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png"));
-                        try{
-                            Thread.sleep(milis);
-                        } catch (InterruptedException ex) {
-                            System.out.println("el hilo ha sido interrumpido");
-                        }
+
                     } else {
                         imagenPersonaje.setIcon(new ImageIcon("FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png"));
-                        try{
-                            Thread.sleep(milis);
-                        } catch (InterruptedException ex) {
-                            System.out.println("el hilo ha sido interrumpido");
-                        }
+
                     }
 
             } else if (eleccion.equals("FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png")) {
@@ -254,6 +240,7 @@ public class Lienzo extends JPanel implements KeyListener {
             pasoDerecha++;
             imagenPersonaje.setLocation(x + step, y);
         }
+        verificarColisiones();
     }
 
 
@@ -275,6 +262,7 @@ public class Lienzo extends JPanel implements KeyListener {
                     // Solo actualizar la posición si el personaje está cayendo o no está bien posicionado
                     if (imagenPersonaje.getY() != y) {
                         imagenPersonaje.setLocation(imagenPersonaje.getX(), y);
+                        moverMapa();
                         enSalto = false; // Finaliza el salto para que caiga en la plataforma
                         colisionDetectada = true;
                         break;
@@ -287,6 +275,14 @@ public class Lienzo extends JPanel implements KeyListener {
         if (!colisionDetectada) {
             aplicarGravedad();
         }
+    }
+
+    private void moverMapa() {
+        for (Plataforma plataforma : plataformas) {
+            plataforma.setLocation(plataforma.getX(), plataforma.getY() + 5); // Mueve cada plataforma hacia abajo
+        }
+        desplazamientoVertical += 1; // Mantiene el control del desplazamiento acumulado
+        repaint(); // Redibuja el fondo y las plataformas
     }
 
 
@@ -325,12 +321,11 @@ public class Lienzo extends JPanel implements KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Dibujar imagen de fondo redimensionada para llenar el ancho y alto del panel
-        g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+        // Dibujar imagen de fondo con desplazamiento vertical
+        g.drawImage(imagenFondo, 0, +desplazamientoVertical, getWidth(), getHeight(), this); // Fondo extendido
 
-        // Redimensionar y dibujar plataformas
+        // Dibujar plataformas actualizadas
         redimensionarPlataformas();
-
         g.setColor(Color.BLACK);
         for (Plataforma plataforma : plataformas) {
             g.fillRect(plataforma.getX(), plataforma.getY(), plataforma.getWidth(), plataforma.getHeight());
