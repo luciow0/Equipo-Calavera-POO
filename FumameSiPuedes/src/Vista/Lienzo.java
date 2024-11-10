@@ -111,6 +111,7 @@ public class Lienzo extends JPanel implements KeyListener {
         plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05));
 
         // Plataforma inicial
+        plataformas.add(new Plataforma(0.5, 0.9, 0.2, 0.05));
         plataformas.add(new Plataforma(0.5, 0.7, 0.2, 0.05));
 
         // Agregar plataformas adicionales
@@ -118,19 +119,19 @@ public class Lienzo extends JPanel implements KeyListener {
         double plataformaY = 0.6; // Comienza un poco más arriba
         double plataformaAncho = 0.2;
         double plataformaAlto = 0.05;
-        double plataformaSeparacionY = 0.3; // Separación vertical entre plataformas
+        double plataformaSeparacionY = 0.2; // Separación vertical entre plataformas
         int contador = 0;
         double UbicacionPlataforma = 0.3;
 
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             plataformas.add(new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto));
             plataformaY -= plataformaSeparacionY; // Sube la plataforma
             if (contador <= 5 && contador > 0){
-                plataformaX += 0.3 * Math.random() - 0.3; // Desplaza ligeramente la plataforma
+                plataformaX += 0.25 * Math.random() - 0.3; // Desplaza ligeramente la plataforma
                 contador--;
             } else if (contador <= 0 && contador > -5) {
-                plataformaX += 0.3 * Math.random() - 0.01; // Desplaza ligeramente la plataforma
+                plataformaX += 0.25 * Math.random() - 0.01; // Desplaza ligeramente la plataforma
                 contador++;
             }
         }
@@ -315,7 +316,7 @@ public class Lienzo extends JPanel implements KeyListener {
     }
 
     private void moverMapa() {
-        desplazamientoVertical += 1; // Mantiene el control del desplazamiento acumulado
+        desplazamientoVertical += 2; // Mantiene el control del desplazamiento acumulado
         repaint(); // Redibuja el fondo y las plataformas
     }
 
