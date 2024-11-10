@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import FumameSiPuedes.src.Modelo.Plataforma;
 
-
 public class Lienzo extends JPanel implements KeyListener {
 
     private Image imagenFondo;
@@ -36,7 +35,6 @@ public class Lienzo extends JPanel implements KeyListener {
         addKeyListener(this);
         setFocusable(true);
         setLayout(null);
-
 
         String smokiDerechaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
         String smokiDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png";
@@ -84,7 +82,6 @@ public class Lienzo extends JPanel implements KeyListener {
         timer.start();
     }
 
-
     // Método para reproducir el audio en loop
     public void reproducirAudioEnLoop(String rutaArchivo) {
         try {
@@ -108,22 +105,39 @@ public class Lienzo extends JPanel implements KeyListener {
         int anchoPanel = getWidth();
         int altoPanel = getHeight();
 
-        // Plataforma invisible en el piso (por ejemplo, altura del 5% de la pantalla)
-        plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05)); // Sin imagen, solo color
+        // Plataforma invisible en el piso
+        plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05));
 
-        // Agregar las demás plataformas visibles
-        plataformas.add(new Plataforma(0.2, 0.6, 0.2, 0.02)); // Proporciones relativas
-        plataformas.add(new Plataforma(0.5, 0.8, 0.2, 0.02)); // Proporciones relativas
+        // Plataforma inicial
+        plataformas.add(new Plataforma(0.5, 0.7, 0.2, 0.05));
 
+        // Agregar plataformas adicionales
+        double plataformaX = 0.5;
+        double plataformaY = 0.6; // Comienza un poco más arriba
+        double plataformaAncho = 0.2;
+        double plataformaAlto = 0.05;
+        double plataformaSeparacionY = 0.3; // Separación vertical entre plataformas
+        int contador = 0;
+        double UbicacionPlataforma = 0.3;
+
+
+        for (int i = 0; i < 20; i++) {
+            plataformas.add(new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto));
+            plataformaY -= plataformaSeparacionY; // Sube la plataforma
+            if (contador <= 5 && contador > 0){
+                plataformaX += 0.3 * Math.random() - 0.3; // Desplaza ligeramente la plataforma
+                contador--;
+            } else if (contador <= 0 && contador > -5) {
+                plataformaX += 0.3 * Math.random() - 0.01; // Desplaza ligeramente la plataforma
+                contador++;
+            }
+        }
         for (Plataforma plataforma : plataformas) {
             add(plataforma);
         }
 
         redimensionarPlataformas();
     }
-
-
-
 
     private void redimensionarPlataformas() {
         for (Plataforma plataforma : plataformas) {
@@ -144,8 +158,6 @@ public class Lienzo extends JPanel implements KeyListener {
         repaint(); // Redibuja el componente
     }
 
-
-
     private void posicionarPersonajeCentro() {
         int panelWidth = getWidth();
         int panelHeight = getHeight();
@@ -156,7 +168,6 @@ public class Lienzo extends JPanel implements KeyListener {
         int posicionY = panelHeight - personajeHeight - 100;  // Ajuste de altura para no quedar al borde inferior
         imagenPersonaje.setBounds(posicionX, posicionY, personajeWidth, personajeHeight);
     }
-
 
     private void actualizarMovimiento(String eleccion) {
         int step = 5;
@@ -267,7 +278,6 @@ public class Lienzo extends JPanel implements KeyListener {
         }
         verificarColisiones();
     }
-
 
     private void verificarColisiones() {
         boolean colisionDetectada = false;
