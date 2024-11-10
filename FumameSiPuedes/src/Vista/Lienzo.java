@@ -329,7 +329,7 @@ public class Lienzo extends JPanel implements KeyListener {
     }
 
     private void moverMapa() {
-        desplazamientoVertical += 2; // Mantiene el control del desplazamiento acumulado
+        desplazamientoVertical += 5; // Mantiene el control del desplazamiento acumulado
         repaint(); // Redibuja el fondo y las plataformas
     }
 
