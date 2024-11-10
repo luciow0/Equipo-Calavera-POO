@@ -352,16 +352,17 @@ public class Lienzo extends JPanel implements KeyListener {
         int altoVentana = getHeight();
         int yRecorte = Math.max(0, 1280 - altoVentana - desplazamientoVertical);
 
-       // plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05));
-
         // Dibuja la sección visible de la imagen de fondo
         g.drawImage(imagenFondo, 0, 0, getWidth(), altoVentana,
                 0, yRecorte, 426, yRecorte + altoVentana, this);
 
-        g.drawImage(imagenCajaCigarrillos, 10, 450, this);
+        // Ajusta la posición de la imagen de los cigarrillos para que se quede más abajo
+        int posicionY = 670 + desplazamientoVertical;  // Se aumenta el valor para mover la imagen hacia abajo
+        if (posicionY >= 0) { // Si la imagen es visible (no se ha desplazado fuera de la pantalla)
+            g.drawImage(imagenCajaCigarrillos, 10, posicionY, this);
+        }
 
-
-        // Redibujar plataformas y otros elementos con desplazamiento offsetY
+        // Redibujar plataformas y otros elementos con desplazamiento
         redimensionarPlataformas();
         g.setColor(Color.BLACK);
         for (Plataforma plataforma : plataformas) {
