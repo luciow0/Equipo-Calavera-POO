@@ -128,7 +128,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private void redimensionarPlataformas() {
         for (Plataforma plataforma : plataformas) {
             int nuevoX = (int) (plataforma.getPosicionRelativaX() * getWidth());
-            int nuevoY = (int) (plataforma.getPosicionRelativaY() * getHeight());
+            int nuevoY = (int) (plataforma.getPosicionRelativaY() * getHeight() + desplazamientoVertical);
             int nuevoAncho = (int) (plataforma.getAnchoRelativo() * getWidth());
             int nuevoAlto = (int) (plataforma.getAltoRelativo() * getHeight());
 
@@ -303,9 +303,6 @@ public class Lienzo extends JPanel implements KeyListener {
     }
 
     private void moverMapa() {
-        for (Plataforma plataforma : plataformas) {
-            plataforma.setLocation(plataforma.getX(), plataforma.getY() + 5); // Mueve cada plataforma hacia abajo
-        }
         desplazamientoVertical += 1; // Mantiene el control del desplazamiento acumulado
         repaint(); // Redibuja el fondo y las plataformas
     }
