@@ -18,6 +18,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private Modelo.CigarrilloMentaSplash cigarrilloMentaSplash = new Modelo.CigarrilloMentaSplash();
 
     private JLabel imagenPersonaje;
+    private JLabel imagenPlataformaFinal; // Nueva imagen para la última plataforma
     private boolean enSalto = false;
     private boolean moviendoIzquierda = false;
     private boolean moviendoDerecha = false;
@@ -39,20 +40,8 @@ public class Lienzo extends JPanel implements KeyListener {
         setLayout(null);
 
         String smokiDerechaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
-        String smokiDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha-caminando.png";
-        String smokiIzquierdaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda.png";
-        String smokiIzquierdaCaminando = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-izquierda-caminando.png";
-
-        String lazyslimDerechaParado = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
-        String lazyslimDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
-        String lazyslimIzquierdaParado = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda.png";
-        String lazyslimIzquierdaCaminando = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-izquierda-caminando.png";
-
         String mintyDerechaParado = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png";
-        String mintyDerechaCaminando = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha-caminando.png";
-        String mintyIzquierdaParado = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda.png";
-        String mintyIzquierdaCaminando = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-izquieda-caminando.png";
-
+        String lazyslimDerechaParado = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
 
         // Setear imagen de personaje recibiendo por argumento en el constructor el path
         if (eleccion.equals(smokiDerechaParado)){
@@ -121,10 +110,10 @@ public class Lienzo extends JPanel implements KeyListener {
         double plataformaAlto = 0.05;
         double plataformaSeparacionY = 0.2; // Separación vertical entre plataformas
         int contador = 0;
-        double UbicacionPlataforma = 0.3;
 
-
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 29; i++) {
+            // Asegurarse de que la plataforma esté dentro de los límites del panel
+            plataformaX = Math.max(0.05, Math.min(0.75, plataformaX));
             plataformas.add(new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto));
             plataformaY -= plataformaSeparacionY; // Sube la plataforma
             if (contador <= 5 && contador > 0){
@@ -135,15 +124,20 @@ public class Lienzo extends JPanel implements KeyListener {
                 contador++;
             }
         }
-        for (Plataforma plataforma : plataformas) {
-            add(plataforma);
-        }
+
+        // Última plataforma con imagen
+        plataformaX = Math.max(0.05, Math.min(0.75, plataformaX));
+        Plataforma ultimaPlataforma = new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto);
+        plataformas.add(ultimaPlataforma);
+        imagenPlataformaFinal = new JLabel(new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/final.png"));
+        add(imagenPlataformaFinal);
 
         redimensionarPlataformas();
     }
 
     private void redimensionarPlataformas() {
-        for (Plataforma plataforma : plataformas) {
+        for (int i = 0; i < plataformas.size(); i++) {
+            Plataforma plataforma = plataformas.get(i);
             int nuevoX = (int) (plataforma.getPosicionRelativaX() * getWidth());
             int nuevoY = (int) (plataforma.getPosicionRelativaY() * getHeight() + desplazamientoVertical);
             int nuevoAncho = (int) (plataforma.getAnchoRelativo() * getWidth());
@@ -155,11 +149,27 @@ public class Lienzo extends JPanel implements KeyListener {
             nuevoY = Math.max(nuevoY, 0); // Asegura que Y no sea negativa
 
             plataforma.setBounds(nuevoX, nuevoY, nuevoAncho, nuevoAlto);
+
+            // Redimensionar la imagen en la última plataforma
+            if (i == plataformas.size() - 1) {
+                imagenPlataformaFinal.setBounds(nuevoX, nuevoY - nuevoAlto, nuevoAncho, nuevoAlto);
+            }
         }
 
         revalidate(); // Actualiza el layout
         repaint(); // Redibuja el componente
     }
+
+    private void verificarColisionConImagenFinal() {
+        if (imagenPersonaje.getBounds().intersects(imagenPlataformaFinal.getBounds())) {
+            finalizarJuego();
+        }
+    }
+    private void finalizarJuego() {
+        timer.stop();
+        JOptionPane.showMessageDialog(this, "¡Has alcanzado la última plataforma! Fin del juego.");
+    }
+
 
     private void posicionarPersonajeCentro() {
         int panelWidth = getWidth();
@@ -313,6 +323,9 @@ public class Lienzo extends JPanel implements KeyListener {
         if (!colisionDetectada) {
             aplicarGravedad();
         }
+
+        // Verificar colisión con la imagen de la última plataforma
+        verificarColisionConImagenFinal();
     }
 
     private void moverMapa() {
