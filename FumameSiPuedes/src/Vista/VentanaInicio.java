@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import FumameSiPuedes.src.Vista.AudioManager;
 import Vista.Lienzo;
 
 public class VentanaInicio extends JFrame {
@@ -85,8 +87,6 @@ public class VentanaInicio extends JFrame {
                 ventana.setResizable(true); // Permitir el redimensionado
                 ventana.setLocationRelativeTo(null); // Centrar la ventana
 
-                lienzo.reproducirAudioEnLoop("FumameSiPuedes/src/Musica/musicaFumameSipuedes.wav");
-
                 // Escuchar cambios de tamaño en la ventana para redibujar el lienzo
                 ventana.addComponentListener(new java.awt.event.ComponentAdapter() {
                     @Override
@@ -96,6 +96,8 @@ public class VentanaInicio extends JFrame {
                 });
 
                 ventana.setVisible(true);
+
+
 
             }
         });
