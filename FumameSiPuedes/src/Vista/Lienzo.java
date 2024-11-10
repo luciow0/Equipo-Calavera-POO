@@ -31,7 +31,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private int desplazamientoVertical = 0;
 
     public Lienzo(String eleccion) {
-        imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondoConCajaYCen.png.jpg").getImage();
+        imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondo.jpg").getImage();
         imagenCajaCigarrillos = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/CAJA_CIGARRILLOS-removebg-preview.png").getImage();
 
         addKeyListener(this);
