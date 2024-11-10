@@ -12,6 +12,7 @@ import FumameSiPuedes.src.Modelo.Plataforma;
 public class Lienzo extends JPanel implements KeyListener {
 
     private Image imagenFondo;
+    private Image imagenCajaCigarrillos;
     private Modelo.CigarrilloSmooki cigarrilloSmooki = new Modelo.CigarrilloSmooki();
     private Modelo.CigarrilloLazySlim cigarrilloLazySlim = new Modelo.CigarrilloLazySlim();
     private Modelo.CigarrilloMentaSplash cigarrilloMentaSplash = new Modelo.CigarrilloMentaSplash();
@@ -31,6 +32,7 @@ public class Lienzo extends JPanel implements KeyListener {
 
     public Lienzo(String eleccion) {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondoEstirado.jpg").getImage();
+        imagenCajaCigarrillos = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/CAJA_CIGARRILLOS-removebg-preview.png").getImage();
 
         addKeyListener(this);
         setFocusable(true);
@@ -317,12 +319,6 @@ public class Lienzo extends JPanel implements KeyListener {
         repaint(); // Redibuja el fondo y las plataformas
     }
 
-
-
-
-
-
-
     private void aplicarGravedad() {
         if (!enSalto) {
             int y = imagenPersonaje.getY();
@@ -347,8 +343,6 @@ public class Lienzo extends JPanel implements KeyListener {
         }
     }
 
-
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -357,9 +351,14 @@ public class Lienzo extends JPanel implements KeyListener {
         int altoVentana = getHeight();
         int yRecorte = Math.max(0, 1280 - altoVentana - desplazamientoVertical);
 
+       // plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05));
+
         // Dibuja la sección visible de la imagen de fondo
         g.drawImage(imagenFondo, 0, 0, getWidth(), altoVentana,
                 0, yRecorte, 426, yRecorte + altoVentana, this);
+
+        g.drawImage(imagenCajaCigarrillos, 10, 450, this);
+
 
         // Redibujar plataformas y otros elementos con desplazamiento offsetY
         redimensionarPlataformas();
@@ -368,8 +367,6 @@ public class Lienzo extends JPanel implements KeyListener {
             g.fillRect(plataforma.getX(), plataforma.getY(), plataforma.getWidth(), plataforma.getHeight());
         }
     }
-
-
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -395,7 +392,6 @@ public class Lienzo extends JPanel implements KeyListener {
             moviendoDerecha = false;
         }
     }
-
 
     private void caer() {
         int y = imagenPersonaje.getY();
