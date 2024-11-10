@@ -63,9 +63,6 @@ public class Lienzo extends JPanel implements KeyListener {
             imagenPersonaje = cigarrilloLazySlim.getImagenLabel(lazyslimDerechaParado);
         }
 
-        // Reproducir el audio en loop
-        reproducirAudioEnLoop("C:\\Users\\HP\\Documents\\GitHub\\Equipo-Calavera-POO\\FumameSiPuedes\\src\\Musica\\musicaFumameSipuedes.wav");
-
         add(imagenPersonaje); // Añade la imagen al JPanel lienzo
         crearPlataformas(); // Crear plataformas pero no redimensionarlas aún, invoca metodo
         posicionarPersonajeCentro(); // Invoca metodo para posicionar personaje
