@@ -96,9 +96,6 @@ public class VentanaInicio extends JFrame {
                 });
 
                 ventana.setVisible(true);
-
-
-
             }
         });
         panelInicio.add(botonInicio);

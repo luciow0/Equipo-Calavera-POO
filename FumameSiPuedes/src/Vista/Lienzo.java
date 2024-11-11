@@ -18,47 +18,43 @@ public class Lienzo extends JPanel implements KeyListener {
     private Modelo.CigarrilloMentaSplash cigarrilloMentaSplash = new Modelo.CigarrilloMentaSplash();
 
     private JLabel imagenPersonaje;
-    private JLabel imagenPlataformaFinal; // Nueva imagen para la última plataforma
+    private JLabel imagenPlataformaFinal;
     private boolean enSalto = false;
     private boolean moviendoIzquierda = false;
     private boolean moviendoDerecha = false;
     private ArrayList<Plataforma> plataformas = new ArrayList<>();
     private Timer timer;
 
-    //index para los pasos
     private int pasoIzquierda = 0;
     private int pasoDerecha = 0;
-
     private int desplazamientoVertical = 0;
-
 
     private Image imagenFinJuego;
     private boolean juegoTerminado = false;
-    private Timer timerFinJuego;  // Timer para la imagen de fin de juego
-    private int tiempoMostrado = 0;  // Variable para llevar el tiempo de 5 segundos
+    private Timer timerFinJuego;
+    private int tiempoMostrado = 0;
 
-
+    // Temporizador del juego
+    private Timer timerJuego;
+    private int tiempoRestante = 90; // Tiempo en segundos para llegar a la última plataforma
+    private JLabel etiquetaTiempo;
 
 
     public Lienzo(String eleccion) {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondoEstirado.jpg").getImage();
         imagenCajaCigarrillos = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/CAJA_CIGARRILLOS-removebg-preview.png").getImage();
+        imagenFinJuego = Toolkit.getDefaultToolkit().getImage("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/NO FUMES POR FAVOR, SALVA TU VIDA.png");
 
-       imagenFinJuego = Toolkit.getDefaultToolkit().getImage("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/NO FUMES POR FAVOR, SALVA TU VIDA.png");
-
-        // Cargar plataformas
         crearPlataformas();
 
         addKeyListener(this);
         setFocusable(true);
         setLayout(null);
 
-        // Inicializar las imágenes de los personajes
         String smokiDerechaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
         String mintyDerechaParado = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png";
         String lazyslimDerechaParado = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
 
-        // Setear imagen de personaje recibiendo por argumento en el constructor el path
         if (eleccion.equals(smokiDerechaParado)) {
             imagenPersonaje = cigarrilloSmooki.getImagenLabel(smokiDerechaParado);
         } else if (eleccion.equals(mintyDerechaParado)) {
@@ -67,26 +63,50 @@ public class Lienzo extends JPanel implements KeyListener {
             imagenPersonaje = cigarrilloLazySlim.getImagenLabel(lazyslimDerechaParado);
         }
 
-        add(imagenPersonaje);  // Añadir la imagen del personaje al JPanel
-        crearPlataformas();  // Crear plataformas pero no redimensionarlas aún
-        posicionarPersonajeCentro();  // Posicionar personaje en el centro
+        add(imagenPersonaje);
+        crearPlataformas();
+        posicionarPersonajeCentro();
 
-        // Añadir listener
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                redimensionarPlataformas();  // Redimensionar plataformas primero
-                posicionarPersonajeCentro(); // Posicionar el personaje después de redimensionar
+                redimensionarPlataformas();
+                posicionarPersonajeCentro();
             }
         });
 
-
-        // Timer
+        // Timer para actualizar el movimiento y verificar colisiones
         timer = new Timer(20, e -> {
             actualizarMovimiento(eleccion);
             verificarColisiones();
         });
         timer.start();
+
+        // Inicializar el temporizador del juego
+        etiquetaTiempo = new JLabel("Tiempo restante: " + tiempoRestante);
+        etiquetaTiempo.setFont(new Font("Arial", Font.BOLD, 20));
+        etiquetaTiempo.setForeground(Color.RED);
+        etiquetaTiempo.setBounds(10, 10, 200, 30);
+        add(etiquetaTiempo);
+
+        timerJuego = new Timer(1000, e -> {
+            tiempoRestante--;
+            etiquetaTiempo.setText("Tiempo restante: " + tiempoRestante);
+            if (tiempoRestante <= 0) {
+                finalizarJuegoPorTiempo();
+            }
+        });
+        timerJuego.start();
+    }
+    private void finalizarJuegoPorTiempo() {
+        timer.stop();
+        timerJuego.stop();
+        juegoTerminado = true;
+        repaint();
+
+        Timer cierreTimer = new Timer(5000, e -> System.exit(0));
+        cierreTimer.setRepeats(false);
+        cierreTimer.start();
     }
 
     // Método para reproducir el audio en loop
@@ -108,45 +128,38 @@ public class Lienzo extends JPanel implements KeyListener {
         }
     }
 
-    // Crear plataformas en el juego
     private void crearPlataformas() {
         int anchoPanel = getWidth();
         int altoPanel = getHeight();
 
-        // Plataforma invisible en el piso
         plataformas.add(new Plataforma(0, altoPanel * 0.95, anchoPanel, altoPanel * 0.05));
-
-        // Plataforma inicial
         plataformas.add(new Plataforma(0.5, 0.9, 0.2, 0.05));
         plataformas.add(new Plataforma(0.5, 0.7, 0.2, 0.05));
 
-        // Agregar plataformas adicionales
         double plataformaX = 0.5;
-        double plataformaY = 0.6; // Comienza un poco más arriba
+        double plataformaY = 0.6;
         double plataformaAncho = 0.2;
         double plataformaAlto = 0.05;
-        double plataformaSeparacionY = 0.2; // Separación vertical entre plataformas
+        double plataformaSeparacionY = 0.2;
         int contador = 0;
 
         for (int i = 0; i < 29; i++) {
-            // Asegurarse de que la plataforma esté dentro de los límites del panel
             plataformaX = Math.max(0.05, Math.min(0.75, plataformaX));
             plataformas.add(new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto));
-            plataformaY -= plataformaSeparacionY; // Sube la plataforma
+            plataformaY -= plataformaSeparacionY;
             if (contador <= 5 && contador > 0) {
-                plataformaX += 0.25 * Math.random() - 0.3; // Desplaza ligeramente la plataforma
+                plataformaX += 0.25 * Math.random() - 0.3;
                 contador--;
             } else if (contador <= 0 && contador > -5) {
-                plataformaX += 0.25 * Math.random() - 0.01; // Desplaza ligeramente la plataforma
+                plataformaX += 0.25 * Math.random() - 0.01;
                 contador++;
             }
         }
 
-        // Última plataforma con imagen
         plataformaX = Math.max(0.05, Math.min(0.75, plataformaX));
         Plataforma ultimaPlataforma = new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto);
         plataformas.add(ultimaPlataforma);
-        imagenPlataformaFinal = new JLabel(new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/cenicero-removebg-preview.png"));
+        imagenPlataformaFinal = new JLabel(new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/cenicero-removebg-preview.png"));
         add(imagenPlataformaFinal);
 
         redimensionarPlataformas();
@@ -181,15 +194,14 @@ public class Lienzo extends JPanel implements KeyListener {
 
     private void verificarColisionConImagenFinal() {
         if (imagenPersonaje.getBounds().intersects(imagenPlataformaFinal.getBounds())) {
+            timerJuego.stop();
             finalizarJuego();
         }
     }
 
     private void finalizarJuego() {
         timer.stop();
-        terminarJuego(); // Mostrar la imagen de fin de juego
-
-        // Configurar el timer para que se ejecute el fin del juego en 5 segundos
+        terminarJuego();
         Timer cierreTimer = new Timer(5000, e -> System.exit(0));
         cierreTimer.setRepeats(false);
         cierreTimer.start();
@@ -408,6 +420,8 @@ public class Lienzo extends JPanel implements KeyListener {
             }
         }
     }
+
+
 
     // Método para finalizar el juego
     public void terminarJuego() {
