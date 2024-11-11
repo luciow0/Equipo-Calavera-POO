@@ -31,39 +31,55 @@ public class Lienzo extends JPanel implements KeyListener {
 
     private int desplazamientoVertical = 0;
 
+
+    private Image imagenFinJuego;
+    private boolean juegoTerminado = false;
+    private Timer timerFinJuego;  // Timer para la imagen de fin de juego
+    private int tiempoMostrado = 0;  // Variable para llevar el tiempo de 5 segundos
+
+
+
+
     public Lienzo(String eleccion) {
         imagenFondo = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/fondoEstirado.jpg").getImage();
         imagenCajaCigarrillos = new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/CAJA_CIGARRILLOS-removebg-preview.png").getImage();
+
+       imagenFinJuego = Toolkit.getDefaultToolkit().getImage("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/NO FUMES POR FAVOR, SALVA TU VIDA.png");
+
+        // Cargar plataformas
+        crearPlataformas();
 
         addKeyListener(this);
         setFocusable(true);
         setLayout(null);
 
+        // Inicializar las imágenes de los personajes
         String smokiDerechaParado = "FumameSiPuedes/src/Vista/imgs/Smoki/smoki-derecha.png";
         String mintyDerechaParado = "FumameSiPuedes/src/Vista/imgs/MentaSplash/minty-derecha.png";
         String lazyslimDerechaParado = "FumameSiPuedes/src/Vista/imgs/LazySlim/lazyslim-derecha.png";
 
         // Setear imagen de personaje recibiendo por argumento en el constructor el path
-        if (eleccion.equals(smokiDerechaParado)){
+        if (eleccion.equals(smokiDerechaParado)) {
             imagenPersonaje = cigarrilloSmooki.getImagenLabel(smokiDerechaParado);
-        } else if (eleccion.equals(mintyDerechaParado)){
+        } else if (eleccion.equals(mintyDerechaParado)) {
             imagenPersonaje = cigarrilloMentaSplash.getImagenLabel(mintyDerechaParado);
-        } else if (eleccion.equals(lazyslimDerechaParado)){
+        } else if (eleccion.equals(lazyslimDerechaParado)) {
             imagenPersonaje = cigarrilloLazySlim.getImagenLabel(lazyslimDerechaParado);
         }
 
-        add(imagenPersonaje); // Añade la imagen al JPanel lienzo
-        crearPlataformas(); // Crear plataformas pero no redimensionarlas aún, invoca metodo
-        posicionarPersonajeCentro(); // Invoca metodo para posicionar personaje
+        add(imagenPersonaje);  // Añadir la imagen del personaje al JPanel
+        crearPlataformas();  // Crear plataformas pero no redimensionarlas aún
+        posicionarPersonajeCentro();  // Posicionar personaje en el centro
 
         // Añadir listener
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                redimensionarPlataformas();  // Redimensiona las plataformas primero
-                posicionarPersonajeCentro(); // Posiciona el personaje después de redimensionar
+                redimensionarPlataformas();  // Redimensionar plataformas primero
+                posicionarPersonajeCentro(); // Posicionar el personaje después de redimensionar
             }
         });
+
 
         // Timer
         timer = new Timer(20, e -> {
@@ -92,6 +108,7 @@ public class Lienzo extends JPanel implements KeyListener {
         }
     }
 
+    // Crear plataformas en el juego
     private void crearPlataformas() {
         int anchoPanel = getWidth();
         int altoPanel = getHeight();
@@ -116,7 +133,7 @@ public class Lienzo extends JPanel implements KeyListener {
             plataformaX = Math.max(0.05, Math.min(0.75, plataformaX));
             plataformas.add(new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto));
             plataformaY -= plataformaSeparacionY; // Sube la plataforma
-            if (contador <= 5 && contador > 0){
+            if (contador <= 5 && contador > 0) {
                 plataformaX += 0.25 * Math.random() - 0.3; // Desplaza ligeramente la plataforma
                 contador--;
             } else if (contador <= 0 && contador > -5) {
@@ -129,11 +146,13 @@ public class Lienzo extends JPanel implements KeyListener {
         plataformaX = Math.max(0.05, Math.min(0.75, plataformaX));
         Plataforma ultimaPlataforma = new Plataforma(plataformaX, plataformaY, plataformaAncho, plataformaAlto);
         plataformas.add(ultimaPlataforma);
-        imagenPlataformaFinal = new JLabel(new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/final.png"));
+        imagenPlataformaFinal = new JLabel(new ImageIcon("FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/FumameSiPuedes/src/Vista/imgs/ImagenesUtilitarias/cenicero-removebg-preview.png"));
         add(imagenPlataformaFinal);
 
         redimensionarPlataformas();
     }
+
+
 
     private void redimensionarPlataformas() {
         for (int i = 0; i < plataformas.size(); i++) {
@@ -165,11 +184,16 @@ public class Lienzo extends JPanel implements KeyListener {
             finalizarJuego();
         }
     }
+
     private void finalizarJuego() {
         timer.stop();
-        JOptionPane.showMessageDialog(this, "¡Has alcanzado la última plataforma! Fin del juego.");
-    }
+        terminarJuego(); // Mostrar la imagen de fin de juego
 
+        // Configurar el timer para que se ejecute el fin del juego en 5 segundos
+        Timer cierreTimer = new Timer(5000, e -> System.exit(0));
+        cierreTimer.setRepeats(false);
+        cierreTimer.start();
+    }
 
     private void posicionarPersonajeCentro() {
         int panelWidth = getWidth();
@@ -357,29 +381,48 @@ public class Lienzo extends JPanel implements KeyListener {
         }
     }
 
+
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Calcula la posición del recorte basado en offsetY
-        int altoVentana = getHeight();
-        int yRecorte = Math.max(0, 1280 - altoVentana - desplazamientoVertical);
+        if (juegoTerminado) {
+            g.drawImage(imagenFinJuego, 0, 0, getWidth(), getHeight(), this);
+        } else {
+            int altoVentana = getHeight();
+            int yRecorte = Math.max(0, 1280 - altoVentana - desplazamientoVertical);
 
-        // Dibuja la sección visible de la imagen de fondo
-        g.drawImage(imagenFondo, 0, 0, getWidth(), altoVentana,
-                0, yRecorte, 426, yRecorte + altoVentana, this);
+            g.drawImage(imagenFondo, 0, 0, getWidth(), altoVentana,
+                    0, yRecorte, 426, yRecorte + altoVentana, this);
 
-        // Ajusta la posición de la imagen de los cigarrillos para que se quede más abajo
-        int posicionY = 670 + desplazamientoVertical;  // Se aumenta el valor para mover la imagen hacia abajo
-        if (posicionY >= 0) { // Si la imagen es visible (no se ha desplazado fuera de la pantalla)
-            g.drawImage(imagenCajaCigarrillos, 10, posicionY, this);
+            int posicionY = 670 + desplazamientoVertical;
+            if (posicionY >= 0) {
+                g.drawImage(imagenCajaCigarrillos, 10, posicionY, this);
+            }
+
+            redimensionarPlataformas();
+            g.setColor(Color.BLACK);
+            for (Plataforma plataforma : plataformas) {
+                g.fillRect(plataforma.getX(), plataforma.getY(), plataforma.getWidth(), plataforma.getHeight());
+            }
         }
+    }
 
-        // Redibujar plataformas y otros elementos con desplazamiento
-        redimensionarPlataformas();
-        g.setColor(Color.BLACK);
-        for (Plataforma plataforma : plataformas) {
-            g.fillRect(plataforma.getX(), plataforma.getY(), plataforma.getWidth(), plataforma.getHeight());
+    // Método para finalizar el juego
+    public void terminarJuego() {
+        juegoTerminado = true;
+
+        // Configurar el timer para que se ejecute el fin del juego en 5 segundos
+        timerFinJuego = new Timer(100, e -> repaint()); // Cada 100 ms se repinta la pantalla
+        timerFinJuego.start();
+    }
+
+    // Aquí puedes añadir tu lógica de colisiones o de perder, por ejemplo:
+    private void verificarPerdida() {
+        // Si el personaje cae fuera de la pantalla
+        if (imagenPersonaje.getBounds().getMaxY() > getHeight()) {
+            terminarJuego(); // Llama al método para finalizar el juego
         }
     }
 
