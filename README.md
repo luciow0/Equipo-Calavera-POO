@@ -1,6 +1,4 @@
 # Equipo-Calavera-POO
+Trabajo práctico POO
+Fumame si puedes
 
-Poop
-Rocco edicion
-hola como se llaman= bruno?
-si yo 
