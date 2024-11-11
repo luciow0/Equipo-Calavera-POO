@@ -58,7 +58,7 @@ public class VentanaInicio extends JFrame {
                         JOptionPane.showMessageDialog(null, "MentaSplash elegido, gran elección!");
                         eleccion = rutasImagenes[finalX - 1];
                     } else if (finalX == 3) {
-                        JOptionPane.showMessageDialog(null, "Amigo, ¿por qué elegiste a la mina? ¿Alto puto perrite lo portas?");
+                        JOptionPane.showMessageDialog(null, "LazySlim elegido, gran eleccion!");
                         eleccion = rutasImagenes[finalX - 1];
                     }
                 }
@@ -102,11 +102,4 @@ public class VentanaInicio extends JFrame {
         add(panelInicio, BorderLayout.SOUTH);
     }
 
-    public boolean getInicioJuego() {
-        return inicioJuego;
-    }
-
-    public void setInicioJuego(boolean inicioJuego) {
-        this.inicioJuego = inicioJuego;
-    }
 }

@@ -4,8 +4,6 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import FumameSiPuedes.src.Modelo.Plataforma;
 
@@ -32,7 +30,6 @@ public class Lienzo extends JPanel implements KeyListener {
     private Image imagenFinJuego;
     private boolean juegoTerminado = false;
     private Timer timerFinJuego;
-    private int tiempoMostrado = 0;
 
     // Temporizador del juego
     private Timer timerJuego;
@@ -109,25 +106,6 @@ public class Lienzo extends JPanel implements KeyListener {
         cierreTimer.start();
     }
 
-    // Método para reproducir el audio en loop
-    public void reproducirAudioEnLoop(String rutaArchivo) {
-        try {
-            // Cargar el archivo de audio
-            File archivoAudio = new File(rutaArchivo);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(archivoAudio);
-
-            // Obtener el clip de audio
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-
-            // Reproducir el audio en loop infinito
-            clip.loop(Clip.LOOP_CONTINUOUSLY);  // Loops indefinitely
-            clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void crearPlataformas() {
         int anchoPanel = getWidth();
         int altoPanel = getHeight();
@@ -164,8 +142,6 @@ public class Lienzo extends JPanel implements KeyListener {
 
         redimensionarPlataformas();
     }
-
-
 
     private void redimensionarPlataformas() {
         for (int i = 0; i < plataformas.size(); i++) {
@@ -393,8 +369,6 @@ public class Lienzo extends JPanel implements KeyListener {
         }
     }
 
-
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -421,8 +395,6 @@ public class Lienzo extends JPanel implements KeyListener {
         }
     }
 
-
-
     // Método para finalizar el juego
     public void terminarJuego() {
         juegoTerminado = true;
@@ -432,13 +404,6 @@ public class Lienzo extends JPanel implements KeyListener {
         timerFinJuego.start();
     }
 
-    // Aquí puedes añadir tu lógica de colisiones o de perder, por ejemplo:
-    private void verificarPerdida() {
-        // Si el personaje cae fuera de la pantalla
-        if (imagenPersonaje.getBounds().getMaxY() > getHeight()) {
-            terminarJuego(); // Llama al método para finalizar el juego
-        }
-    }
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -463,12 +428,6 @@ public class Lienzo extends JPanel implements KeyListener {
         } else if (e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
             moviendoDerecha = false;
         }
-    }
-
-    private void caer() {
-        int y = imagenPersonaje.getY();
-        int nuevoY = y + 5; // Velocidad de caída
-        boolean enObstaculo = false;
     }
 
     private void iniciarSalto() {

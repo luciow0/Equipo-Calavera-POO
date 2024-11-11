@@ -28,9 +28,4 @@ public class AudioManager {
         }
     }
 
-    public static void detenerAudio() {
-        if (musicaClip != null && musicaClip.isRunning()) {
-            musicaClip.stop();
-        }
-    }
 }

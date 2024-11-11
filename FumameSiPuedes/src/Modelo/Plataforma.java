@@ -1,6 +1,5 @@
 package FumameSiPuedes.src.Modelo;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Plataforma extends Obstaculo {
