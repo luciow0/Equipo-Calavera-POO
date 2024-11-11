@@ -168,6 +168,7 @@ public class Lienzo extends JPanel implements KeyListener {
     private void finalizarJuego() {
         timer.stop();
         JOptionPane.showMessageDialog(this, "¡Has alcanzado la última plataforma! Fin del juego.");
+        System.exit(0);
     }
 
 
