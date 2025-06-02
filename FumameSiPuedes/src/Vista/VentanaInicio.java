@@ -1,4 +1,4 @@
-package Vista;
+package FumameSiPuedes.src.Vista;
 
 import javax.swing.*;
 import java.awt.*;
