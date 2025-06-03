@@ -1,0 +1,157 @@
+
+DOCUMENTACIÓN DESCRIPTIVA SOBRE LOS COMPONENTES DE JAVA PARA DIBUJAR INTERFACES GRÁFICAS
+========================================================================================
+
+INTRODUCCIÓN
+------------
+Java ofrece dos bibliotecas principales para la creación de interfaces gráficas de usuario (GUI):
+
+1. **AWT (Abstract Window Toolkit)**  
+   - La primera biblioteca gráfica incluida en Java (desde 1995).  
+   - Depende de componentes nativos del sistema operativo («_pesados_») y por tanto hereda su apariencia
+     y limitaciones.
+
+2. **Swing (javax.swing)**  
+   - Introducida en 1998 como parte de Java Foundation Classes (JFC).  
+   - Implementa componentes 100% Java («_ligeros_»), independientes del SO y con un sistema de
+     _look‑and‑feel_ que puede cambiarse en tiempo de ejecución.  
+   - Construida sobre AWT: **java.awt.Component** es la clase base de la jerarquía; todos los
+     componentes Swing extienden **javax.swing.JComponent**, que a su vez hereda de *Component*.
+
+Todo el código de UI Swing debe ejecutarse en el **Event Dispatch Thread (EDT)**, un hilo especial que
+gestiona la cola de eventos de la aplicación.  Swing no es *thread‑safe*; manipular componentes
+fuera del EDT provoca comportamientos imprevisibles.
+
+-----------------------------------------------------------------------------
+COMPONENTES FUNDAMENTALES
+-----------------------------------------------------------------------------
+
+| Componente             | Función principal                                                         |
+|------------------------|----------------------------------------------------------------------------|
+| **JFrame**             | Ventana de nivel superior con barra de título, icono y botones de control.|
+| **JPanel**             | Contenedor genérico; puede anidar otros componentes y/o dibujar gráficos. |
+| **JLabel**             | Muestra texto o un icono (p.ej. **ImageIcon**).                           |
+| **JButton**            | Botón interactivo que dispara un **ActionEvent** al hacer clic.           |
+| **ImageIcon**          | Representa una imagen —usualmente PNG/JPG— para mostrar en etiquetas o logos.|
+
+> **Nota:** En Swing, casi todo es un *Componente* que puede contener a otros, respetando la jerarquía
+> de nodos.  Los contenedores usan *Layout Managers* para colocar y redimensionar sus hijos.
+
+-----------------------------------------------------------------------------
+MANEJO DE LAYOUT
+-----------------------------------------------------------------------------
+Swing incluye múltiples administradores de diseño (*Layout Managers*).  En la clase de ejemplo se
+emplean tres:
+
+1. **BorderLayout** (por defecto en *JFrame*): divide la superficie en cinco regiones:
+   NORTH, SOUTH, EAST, WEST y CENTER.  
+   - Sólo puede haber un componente por región.  
+   - La región CENTER se expande y ocupa el espacio restante.
+
+2. **FlowLayout**:  
+   - Coloca los componentes como un «párrafo», de izquierda a derecha y de arriba abajo,  
+     respetando el *hgap* y *vgap*.  
+   - El tamaño preferido de cada hijo decide su espacio.
+
+3. **GridLayout**:  
+   - Dispone una cuadrícula X × Y homogénea.  
+   - Cada celda tiene el mismo tamaño; los componentes se añaden fila a fila.
+
+-----------------------------------------------------------------------------
+EVENTOS Y ACTIONLISTENER
+-----------------------------------------------------------------------------
+Cuando el usuario interactúa con la GUI (clic de ratón, pulsación de tecla, etc.) Swing crea objetos
+de evento y los coloca en la cola del EDT.  Para responder a la acción se registran *listeners*:
+
+```java
+boton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Código a ejecutar cuando el botón se pulsa
+    }
+});
+```
+
+El patrón es:
+1. El componente dispara el evento (p.ej. **ActionEvent**).
+2. Swing invoca los métodos del/los listener(s) asociados en el EDT.
+3. El listener realiza lógica de negocio y/o actualiza la interfaz.
+
+-----------------------------------------------------------------------------
+CARGA DE RECURSOS — IMAGEICON
+-----------------------------------------------------------------------------
+`ImageIcon` es una forma sencilla de incorporar imágenes:
+
+```java
+ImageIcon icon = new ImageIcon("ruta/al/archivo.png");
+JLabel label = new JLabel(icon);
+```
+
+- Swing decodifica la imagen en memoria.  
+- La representación se dibuja cada vez que el componente se repinta.  
+- Para escalar manualmente se usa `Image#getScaledInstance()` o se dibuja en un `paintComponent`.
+
+-----------------------------------------------------------------------------
+PINTADO PERSONALIZADO
+-----------------------------------------------------------------------------
+Cuando se necesita un lienzo libre (gráficos 2D, sprites, etc.) es común extender **JPanel** o
+**JComponent** y sobreescribir:
+
+```java
+@Override
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g);          // Limpia el área con el color de fondo
+    Graphics2D g2 = (Graphics2D) g;   // API 2D rica (antialiasing, transformaciones…)
+    // ...dibujar...
+}
+```
+
+El método se invoca automáticamente cuando:
+- El componente se hace visible por primera vez.
+- Se llama a `repaint()`.  
+- El sistema operativo solicita repintado (redimensionado, tapado/des‑tapado, etc.).
+
+-----------------------------------------------------------------------------
+OTROS COMPONENTES EMPLEADOS EN LA CLASE DE EJEMPLO
+-----------------------------------------------------------------------------
+* **JOptionPane.showMessageDialog(...)**  
+  Ventana modal rápida para mostrar mensajes informativos, de advertencia o error.
+
+* **ComponentListener/componentResized**  
+  Permite reaccionar a cambios de tamaño de un contenedor y, por ejemplo, ajustar el lienzo.
+
+-----------------------------------------------------------------------------
+CICLO DE VIDA TÍPICO DE UNA VENTANA SWING
+-----------------------------------------------------------------------------
+1. Construcción del contenedor de nivel superior (**JFrame**).  
+2. Población con paneles y componentes hijos.  
+3. Configuración de propiedades (título, tamaño, operación al cerrar, etc.).  
+4. Registro de listeners.  
+5. Llamada a `setVisible(true)` — la ventana entra en el EDT y se muestra.  
+6. El usuario interactúa ↦ eventos ↦ listeners ↦ actualizaciones ↦ `repaint()`.
+
+-----------------------------------------------------------------------------
+BUENAS PRÁCTICAS
+-----------------------------------------------------------------------------
+- Crear las interfaces dentro de `SwingUtilities.invokeLater()` para asegurar el uso del EDT.  
+- Evitar realizar tareas pesadas en listeners; delegar en *SwingWorker* o hilos auxiliares.  
+- Llamar a `pack()` en lugar de `setSize()` siempre que sea posible: calcula el tamaño óptimo según
+  el **LayoutManager** y los componentes.  
+- Separar la lógica de presentación (Vista) de la lógica de dominio (Modelo) y la de control
+  (Controlador): patrón MVC.
+
+-----------------------------------------------------------------------------
+GLOSARIO RÁPIDO
+-----------------------------------------------------------------------------
+- **EDT (Event Dispatch Thread)**: Hilo exclusivo de Swing donde se despachan y procesan eventos.  
+- **Look‑and‑Feel**: Tema visual de la interfaz.  Se puede cambiar con
+  `UIManager.setLookAndFeel(...)`.  
+- **Lightweight/Heavyweight**: Componentes que NO / SÍ dependen del sistema operativo para
+  el dibujo y manejo de eventos.
+
+-----------------------------------------------------------------------------
+REFERENCIAS
+-----------------------------------------------------------------------------
+* *The Swing Tutorial*. Oracle.  
+* *Filthy Rich Clients*. Chet Haase & Romain Guy.  
+* *Java SE Documentation*. docs.oracle.com/javase.

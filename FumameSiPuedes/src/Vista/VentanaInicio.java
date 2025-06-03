@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import FumameSiPuedes.src.Vista.AudioManager;
-import Vista.Lienzo;
+import FumameSiPuedes.src.Vista.Lienzo;
 
 public class VentanaInicio extends JFrame {
     private boolean inicioJuego = false;
@@ -77,7 +77,7 @@ public class VentanaInicio extends JFrame {
                 JFrame ventana = new JFrame("Fumame si puedes");
                 ventana.setLayout(new BorderLayout()); // Usar BorderLayout en la ventana del juego
 
-                Vista.Lienzo lienzo = new Vista.Lienzo(eleccion); // Crear una instancia de Lienzo
+                Lienzo lienzo = new Lienzo(eleccion); // Crear una instancia de Lienzo
                 ventana.add(lienzo, BorderLayout.CENTER); // Agregar el lienzo en el centro del frame
 
 

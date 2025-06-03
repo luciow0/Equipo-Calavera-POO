@@ -1,10 +1,14 @@
-package Vista;
+package FumameSiPuedes.src.Vista;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+
+import FumameSiPuedes.src.Modelo.CigarrilloLazySlim;
+import FumameSiPuedes.src.Modelo.CigarrilloMentaSplash;
+import FumameSiPuedes.src.Modelo.CigarrilloSmooki;
 import FumameSiPuedes.src.Modelo.Plataforma;
 
 public class Lienzo extends JPanel implements KeyListener {
@@ -13,9 +17,9 @@ public class Lienzo extends JPanel implements KeyListener {
     // instanciacion de los personajes (cigarrillos)
     private Image imagenFondo;
     private Image imagenCajaCigarrillos;
-    private Modelo.CigarrilloSmooki cigarrilloSmooki = new Modelo.CigarrilloSmooki();
-    private Modelo.CigarrilloLazySlim cigarrilloLazySlim = new Modelo.CigarrilloLazySlim();
-    private Modelo.CigarrilloMentaSplash cigarrilloMentaSplash = new Modelo.CigarrilloMentaSplash();
+    private CigarrilloSmooki cigarrilloSmooki = new CigarrilloSmooki();
+    private CigarrilloLazySlim cigarrilloLazySlim = new CigarrilloLazySlim();
+    private CigarrilloMentaSplash cigarrilloMentaSplash = new CigarrilloMentaSplash();
 
     // declaracion de Jlabel para los componentes visuales del juego, personaje y palyaforma, varaibles booleanas de movimiento,
     // arreglo donde se almacenaran las plataformas creadas

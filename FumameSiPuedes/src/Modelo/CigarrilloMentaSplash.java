@@ -1,5 +1,5 @@
-package Modelo;
+package FumameSiPuedes.src.Modelo;
 
 import javax.swing.*;
 
-public class CigarrilloMentaSplash extends FumameSiPuedes.src.Modelo.Cigarrillo {}
+public class CigarrilloMentaSplash extends Cigarrillo {}
